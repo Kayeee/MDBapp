@@ -1,0 +1,12 @@
+<div style="width: 400px; margin: auto; position: relative;" class="cta-box">
+  <h3 class="header-small text-center text-white">User Login</h3>
+  <!-- <p class="body-p text-center text-white">Enter your email address to be one of our first users.</p> -->
+  <form action="/login_action/" method="POST">{% csrf_token %}
+    <input type="text" name="email" placeholder="email" />
+    <input type="password" name="password" placeholder="Password"/>
+    <input type="submit" value="Login">
+    <!-- <input type="hidden" name="_next" value="/thankyou/" /> -->
+    <input type="text" name="_gotcha" style="display:none" />
+    <input type="hidden" name="_format" value="plain" />
+  </form>
+</div>

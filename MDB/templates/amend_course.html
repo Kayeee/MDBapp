@@ -1,0 +1,36 @@
+{% load static %}
+
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
+</head>
+
+<body>
+<section>
+  <div>
+    {% if found_params %}
+
+    <table style="margin: 10px;">
+      {% for key, values in found_params.items %}
+        <tr>
+          <th>{{key}}</th>
+          <th>{{values}}<th>
+        </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+
+    <table>
+      {% for event in events %}
+        <tr>
+          <th>{{event.0}}</th>
+          <th>{{event.1}}</th>
+        </tr>
+      {% endfor %}
+  </div>
+</section>
+</body>
