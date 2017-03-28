@@ -1,0 +1,61 @@
+{% load static %}
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
+</head>
+
+<body>
+<section>
+  <div>
+    {% if found_params %}
+
+    <table style="margin: 10px;" id = "params">
+      {% for key, values in found_params.items %}
+        <tr>
+          <th>{{key}}</th>
+          <th>{{values}}<th>
+        </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+
+    <table id="events">
+      {% for event in events %}
+        <tr class="item">
+          <th class="due-date">{{event.0}}</th>
+          <th class="event">{{event.1}}</th>
+        </tr>
+      {% endfor %}
+    </table>
+    <button id="submit-btn">Looks Good!</button>
+  </div>
+</section>
+</body>
+
+<script>
+$("#events tr.item").each(function() {
+  $this = $(this);
+  var due = $this.find(".due-date").html();
+  var assignment = $this.find(".event").html();
+  console.log(due);
+  console.log(assignment);
+});
+
+// $('#submit-btn').click(function() {
+//   $.ajax({
+//   url: "http://127.0.0.1:8000/energy_totals/",
+//   type: 'GET',
+//   dataType: 'json',
+//   success: function(resp) {
+//
+//   }
+//   });
+});
+</script>

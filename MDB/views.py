@@ -1,40 +1,115 @@
 from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from rest_framework.decorators import api_view
+from django.contrib.auth.decorators import login_required
 
+from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
+from django.shortcuts import redirect
+
+import json
 import forms
 import models
 import serializers
 from syllextract import extract
-
+import tasks
 
 ###################### RENDERS ##################
 def landing(request):
     #normally this will rendeer the landing page. skipping that for now. forwarding to login.
-    return HttpResponseRedirect('/login/')
+    return render(request, 'landing.html')
+
+def thankyou(request):
+    email = request.POST.get('email')
+
+    if email:
+        print email
+        models.NewsReceiver.objects.create(email=email)
+    return render(request, 'thankyou.html')
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'register-login.html')
 
+@login_required
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/login/')
+
+@login_required
 def dashboard(request):
     user = request.user
+    courses = [c.course_code for c in list(user.course_set.all())]
 
-    return render(request, 'dashboard.html')
+    #SERIALIZE EVENT TODO: MAKE A REAL SERIALIZER
+    events = []
+    for e in list(user.event_set.all().order_by('due_date')):
+        event = {
+            "id": e.id,
+            "name": e.name,
+            "due_date": e.due_date.strftime('%Y-%m-%dT%H:%M:%SZ'),
+            "course": e.course.course_code
+        }
+        events.append(event)
+
+    notes = []
+    for n in list(user.note_set.all()):
+        note = {
+            "id": n.id,
+            "title": n.title,
+            "text": n.text
+        }
+        notes.append(note)
+    context = {
+        "user": user,
+        "courses": json.dumps(courses),
+        "events": json.dumps(events),
+        "notes": json.dumps(notes)
+    }
+
+    return render(request, 'dashboard.html', context)
 
 def signup(request):
     form = forms.SignupForm()
     return render(request, 'signup.html', {"form": form})
 
+def verify_number(request):
+    return render(request, 'verify_number.html')
+
+@login_required
 def add_course(request):
     return render(request, 'add_course.html')
 
+@api_view(['POST'])
+@login_required
 def amend_course(request):
-    found_params = request.session.get('found_params')
-    events = found_params["events"]
-    del found_params["events"]
+    #Results from Uploading Syllabus
+    if request.session.get('found_params'):
+        found_params = request.session.get('found_params')
+        del request.session['found_params']
+
+        events = found_params["events"]
+        del found_params["events"]
+    #Manual Config
+    else:
+        found_params = dict(request.data)
+        del found_params['csrfmiddlewaretoken']
+        for key, value in found_params.iteritems():
+            found_params[key] = value[0]
+
+        print found_params
+        events={}
+
 
     return render(request, 'amend_course.html', {"found_params": found_params, "events": events})
+
+@login_required
+def new_event(request):
+    user = request.user
+    course_query = user.course_set.all()
+    course_codes = [(course.id, course.course_code) for course in list(course_query)]
+
+    return render(request, 'new_event.html', {"course_list": course_codes})
+
 
 #################### ACTIONS ###############
 def login_action(request):
@@ -42,17 +117,16 @@ def login_action(request):
     password = request.POST.get('password', '')
     user = auth.authenticate(username = email, password = password)
 
-    print email, password
-
     if user:
         auth.login(request, user)
         return HttpResponseRedirect('/home')
 
     else:
         request.path = "/login"
-        messages.add_message(request, messages.INFO, 'Invalid Login')
-        return HttpResponseRedirect(request.path)
+        # messages.add_message(request, {"message": "Invalid Login"})
+        return HttpResponseRedirect(request.path, {"message": "Invalid Login"})
 
+@login_required
 def syllabi_upload_action(request):
      if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
@@ -63,7 +137,89 @@ def syllabi_upload_action(request):
 
 @api_view(['POST'])
 def signup_action(request):
+    print request.data
     serialized = serializers.MDBUserSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
-    return HttpResponseRedirect('/add_course/')
+        # create and login user with empty phone number (needs validation first)
+        user = auth.authenticate(username=request.data['email'], password=request.data['password'])
+        if user:
+            auth.login(request, user)
+        return HttpResponseRedirect('/verify_number/')
+    else:
+        return HttpResponseRedirect('/signup/')
+
+@login_required
+@api_view(['POST'])
+def submit_number_action(request):
+    user = request.user
+    user.phone_number=request.POST.get('number')
+    user.save()
+
+    try:
+        code = tasks.validate_number(request.POST.get('number'))
+        return HttpResponse(str(code))
+    except:
+        return HttpResponse('Number already in use', status=400)
+
+
+@login_required
+def check_verified_action(request):
+    user = request.user
+    if tasks.number_is_validated(user.phone_number):
+        user.number_validated = True
+        user.save()
+        return HttpResponseRedirect('/new_event/')
+    else:
+        return HttpResponseRedirect('/verify_number/', {"message": "Verification Failed"})
+
+@login_required
+@api_view(['POST'])
+def new_event_action(request):
+    request.data["owner"] = request.user.id
+    request.data["course"] = request.user.course_set.get(course_code=request.data["course"]).id
+
+    serialized = serializers.EventSerializer(data=request.data)
+    if serialized.is_valid():
+        serialized.save()
+        return HttpResponse(json.dumps(serialized.data), status=201)
+    else:
+        return HttpResponseRedirect('/new_event/')
+
+@login_required
+@api_view(['POST'])
+def new_note_action(request):
+    request.data["owner"] = request.user.id
+
+    serialized = serializers.NoteSerializer(data=request.data)
+    if serialized.is_valid():
+        serialized.save()
+        return HttpResponse(json.dumps(serialized.data), status=201)
+    else:
+        return HttpResponse(status=500)
+
+
+@login_required
+@api_view(['POST'])
+def confirm_course(request):
+    pass
+    # serialized = serializers.CourseSerializer(data=request.data)
+    # if serialized.is_valid():
+    #     serialized.save()
+    #     print serialized.data
+    #     request.session['found_params'] = serialized.data
+    #
+    #     return HttpResponseRedirect('/add_course/amend_course/')
+    # else:
+    #     return HttpResponseRedirect('/add_course/')
+
+@login_required
+@api_view(['DELETE'])
+def delete_event(request):
+    # try:
+    eventID = request.data['eventID'][0]
+    models.Event.objects.get(id=eventID).delete()
+
+    return HttpResponse(status=200)
+    # except:
+    #     return HttpResponse(status=500)

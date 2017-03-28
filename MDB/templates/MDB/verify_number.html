@@ -1,0 +1,55 @@
+<html>
+<head>
+  <!-- jquery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body>
+<h3 class="header-small text-center text-white">Insert Phone Number</h3>
+<form id="submit_number">{% csrf_token %}
+  <input type="text" name="number"/>
+  <input type="submit" value="Verify">
+  <span style="color: red;">{{message}}</span>
+</form>
+
+<!--  Display Errors -->
+<div id="error-container" style="color: red;"></div>
+
+<!--  Verify Number Area-->
+<div id="instruct-container">
+  <h3 id="code-label">Your code: </h3>
+  <span>You should receive a call momentairly.</span>
+  <div id="continue">
+    <span>Once validated, click <a href="/check_verified_action/">here</a> to continue</span>
+  </div>
+</div>
+
+
+
+<!-- JS -->
+<script>
+$(document).ready(function() {
+    $('#instruct-container').hide();
+    $('#continue').hide();
+
+    $("#submit_number").submit(function(event){
+        $.ajax({
+             type:"POST",
+             url:"/submit_number_action/",
+             data: $('#submit_number').serialize(),
+             success: function(data){
+                 $('#instruct-container').show(100);
+                 $('#continue').show(100); //may not need this line
+                 $('#code-label').append(data);
+             },
+             error: function(data){
+               $('#error-container').append('<h3>' + data['responseText'] + '</h3>')
+             }
+        });
+        return false;
+   });
+
+});
+</script>
+</body>
+</html>

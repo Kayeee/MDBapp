@@ -1,0 +1,145 @@
+html {
+  height: 100%;
+  position: relative; }
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; }
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: center; }
+
+.leftColumn {
+  background-color: #50bec2;
+  height: 100%; }
+  .leftColumn h1, .leftColumn h3, .leftColumn h4 {
+    color: white; }
+  .leftColumn h3 {
+    margin-top: 10px; }
+
+.rightColumn {
+  height: 100%;
+  position: relative;
+  margin: 0 auto; }
+
+.rightColumn h1 {
+  color: #f47f31; }
+
+.mdbLogo {
+  margin-top: 30px;
+  width: 150px; }
+  .mdbLogo img {
+    width: 100%; }
+
+.video {
+  margin-top: 60px; }
+
+iframe {
+  margin: 0 auto;
+  margin-top: 20px;
+  display: block;
+  width: 450px;
+  height: 205px; }
+
+.formBox {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+  text-align: center; }
+  .formBox h1 {
+    margin-top: 115px; }
+
+.buttonOne {
+  margin: 0 auto;
+  margin-top: 67px;
+  display: block;
+  background-color: #f47f31;
+  width: 38%; }
+  .buttonOne h4 {
+    padding: 13px 0px;
+    font-size: 16px; }
+
+form {
+  margin: 0 auto; }
+
+input[type="text"] {
+  margin-top: 115px;
+  background-color: white;
+  width: 75%;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  -webkit-box-sizing: border-box;
+  /* For legacy WebKit based browsers */
+  -moz-box-sizing: border-box;
+  /* For legacy (Firefox <29) Gecko based browsers */
+  box-sizing: border-box; }
+
+input[type="text"]:focus,
+input[type="text"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696; }
+
+.field input[type="password"] {
+  left: 0;
+  margin-top: 25px;
+  width: 75%;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  background-image: url(../images/icons/290.png);
+  background-size: 6%;
+  background-position: 96%;
+  background-repeat: no-repeat;
+  transition: box-shadow 0.3s, border 0.3s;
+  -webkit-box-sizing: border-box;
+  /* For legacy WebKit based browsers */
+  -moz-box-sizing: border-box;
+  /* For legacy (Firefox <29) Gecko based browsers */
+  box-sizing: border-box; }
+
+.field input[type="password"]:focus,
+.field input[type="password"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696; }
+
+.lockIcon {
+  width: 5%;
+  float: left; }
+  .lockIcon img {
+    width: 100%; }
+
+input[type="submit"] {
+  margin-top: 110px;
+  width: 50%;
+  background-color: #f47f31;
+  height: 40px;
+  border: none;
+  color: white; }
+
+/* tablet view */
+@media screen and (max-width: 800px) {
+  .selector h3 {
+    font-size: 1em;
+    margin-top: 34px; }
+
+  iframe {
+    width: 400px;
+    height: 155px; } }
+/*# sourceMappingURL=styles.css.map */
+
+/*# sourceMappingURL=pages.css.map */
+
+/* Kevin's CSS */
+a:link, a:visited {
+  text-decoration: none;
+}
+
+.buttonOne:hover {
+  background-color: #d45d0d;
+}
+
+input[type="submit"]:hover, input[type="submit"]:active {
+  background-color: #d45d0d;
+}

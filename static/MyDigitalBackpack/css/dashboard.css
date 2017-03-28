@@ -1,0 +1,331 @@
+html {
+  height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; }
+
+#screenFill {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+#topBar {
+  width: 100%;
+  height: 55px;
+  background-color: #0595a6;
+  position: absolute; }
+
+#secondBar {
+  margin-top: 55px;
+  width: 100%;
+  height: 45px;
+  z-index: 3;
+  background-color: white;
+  box-shadow: 0 4px 6px -2px gray;
+  position: absolute; }
+
+#mdbLogo {
+  top: 0;
+  left: 0; }
+
+#mdbLogo img {
+  margin-top: 12px;
+  height: 32px; }
+
+#userImage {
+  margin: 0 auto;
+  top: 0;
+  right: 0;
+  border-radius: 50%; }
+
+#userImage img {
+  width: 45px;
+  height: 45px;
+  margin-top: 5px; }
+
+#welcome {
+  font-size: 20px;
+  color: white;
+  margin: 0;
+  margin-top: 4px;
+  text-align: center; }
+
+#studentName {
+  font-size: 17px;
+  color: white;
+  margin: 0;
+  margin-top: -14px;
+  text-align: center; }
+
+#week {
+  font-size: 20px;
+  color: #50bec2;
+  text-align: center;
+  margin-top: 11px; }
+
+#rightArrow {
+  margin-right: 15px;
+  margin-left: 15px;
+  padding: 0; }
+
+.glyphicon {
+  padding: 10px;
+  margin-top: 5px; }
+
+.glyphicon:hover {
+  background-color: #f7f7f7; }
+
+.glyphicon-menu-left {
+  left: 100%; }
+
+#viewType {
+  float: left;
+  padding: 0; }
+
+#timelineContainer {
+  /*height: 300px; */
+  width: 100%;
+  margin-top: 100px;
+  position: absolute;
+  z-index: 4; }
+
+#bottomRow {
+  height: 100%; }
+
+.day {
+  background-color: white; }
+
+.selector {
+  height: 100px;
+  border: .25px solid lightgray; }
+
+.selector h3 {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 41px;
+  color: #212121; }
+
+.selector:hover {
+  cursor: pointer;
+  background-color: #50bec2;
+  color: white; }
+
+.active {
+  background-color: #50bec2;
+  color: white; }
+
+#timeline {
+  padding: 0;
+  height: 300px;
+  float: left;
+  border: 1px solid lightgray; }
+
+#bottomRow {
+  width: 100%;
+  position: absolute;
+  margin-top: 400px; }
+
+#organize, #listView, #notepad {
+  position: relative;
+  padding: 0; }
+
+.header {
+  height: 45px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px; }
+
+.header h3 {
+  font-size: 16px;
+  text-align: center;
+  color: white;
+  margin-top: 0;
+  padding-top: 12px; }
+
+.outer {
+  background-color: #0595a6; }
+
+.inner {
+  background-color: #50bec2; }
+
+.scroller {
+  overflow-y: scroll;
+  height: 50px; }
+
+.organizeSubHeader {
+  width: 100%;
+  height: 27px;
+  margin-top: -9px;
+  background-color: #f7f7f7; }
+  .organizeSubHeader h4 {
+    text-align: center;
+    font-size: 14px;
+    padding-top: 6px;
+    color: #212121; }
+
+.add_icon {
+  margin-top: 3px;
+  margin-left: 5px;
+  width: 15px;
+  float: left; }
+  .add_icon img {
+    width: 100%;
+    height: 100%; }
+
+.course {
+  padding-top: 8px;
+  padding-bottom: 8px; }
+  .course h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #212121; }
+  .course h6 {
+    font-size: 12px;
+    margin: 0;
+    color: #212121; }
+
+.course:hover {
+  box-shadow: 2px 0px 5px 2px lightGray;
+  cursor: pointer; }
+
+.courseActive {
+  box-shadow: 2px 0px 5px 2px lightGray; }
+
+.icon {
+  padding-top: 4px;
+  float: left;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  margin-left: 10px; }
+  .icon img {
+    width: 100%; }
+
+#sortOptions {
+  margin-top: 0px; }
+
+.category {
+  height: 35px; }
+  .category h4 {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 5px;
+    padding-bottom: 0px; }
+
+.category:hover {
+  box-shadow: 2px 0px 5px 2px lightGray;
+  cursor: pointer; }
+
+.categoryActive {
+  box-shadow: 2px 0px 5px 2px lightGray; }
+
+.listViewDay {
+  height: 27px;
+  background-color: #f7f7f7;
+  margin-bottom: 6px; }
+  .listViewDay h4 {
+    text-align: center;
+    color: #212121;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 6px;
+    padding-bottom: 0px;
+    font-size: 14px; }
+
+.event {
+  height: 40px; }
+  .event h4 {
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 2px;
+    padding-bottom: 0px; }
+  .event h6 {
+    font-size: 12px;
+    margin: 0;
+    color: #212121; }
+
+.event:hover {
+  box-shadow: 2px 0px 5px 2px lightGray;
+  cursor: pointer; }
+
+.iconEvent {
+  border-radius: 50%;
+  padding-top: 4px;
+  float: left;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  margin-right: 10px;
+  margin-left: 10px; }
+  .iconEvent img {
+    width: 90%; }
+
+.note {
+  height: 40px; }
+  .note h4 {
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 8px;
+    padding-bottom: 0px;
+    margin-left: 15px; }
+  .note h6 {
+    margin-left: 15px;
+    font-size: 12px;
+    color: #212121;
+    margin-top: 2px;
+    margin-bottom: 0; }
+
+.note:hover {
+  box-shadow: 2px 0px 5px 2px lightGray;
+  cursor: pointer; }
+
+/* tablet view */
+@media screen and (max-width: 800px) {
+  .selector h3 {
+    font-size: 1em;
+    margin-top: 34px; } }
+/*# sourceMappingURL=styles.css.map */
+
+/*# sourceMappingURL=styles.css.map */
+
+
+/* Kevin's css */
+/* - - - - - - - Pop ups - - - - - - - -*/
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.popup-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.cancel {
+    color: #aaaaaa;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+}

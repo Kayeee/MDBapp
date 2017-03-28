@@ -1,0 +1,380 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="en">
+  <head>
+    <link rel="icon" src="{% static "MyDigitalBackpack/images/favicon.png" %}"/>
+    <!-- <link rel="icon" type="image/png" href="images/favicon.png"> -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="thumbnail" content="{% static "MyDigitalBackpack/images/thumbnail-wide.png" %}"/>
+    <!-- <meta name="thumbnail" content="images/thumbnail-wide.png"> -->
+    <meta property="og:image" content="{% static "MyDigitalBackpack/images/thumbnail-wide.png" %}"/>
+    <!-- <meta property="og:image" content="images/thumbnail-wide.png" /> -->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyDigital Backpack</title>
+    <link rel="stylesheet" href="{% static "MyDigitalBackpack/css/foundation.css" %}"/>
+    <!--<link rel="stylesheet" href="css/foundation.css" />-->
+    <link rel="stylesheet" href="{% static "MyDigitalBackpack/css/foundation.min.css" %}"/>
+    <!--<link rel="stylesheet" href="css/foundation.min.css" />-->
+    <link rel="stylesheet" href="{% static "MyDigitalBackpack/css/normalize.css" %}"/>
+    <!-- <link rel="stylesheet" href="css/normalize.css" /> -->
+    <link rel="stylesheet" href="{% static "MyDigitalBackpack/css/landing.css" %}"/>
+    <!-- <link rel="stylesheet" href="css/landing.css" /> -->
+    <link rel="stylesheet" href="{% static "MyDigitalBackpack/css/flipclock.css" %}"/>
+    <!-- <link rel="stylesheet" href="css/flipclock.css" /> -->
+    <link rel="stylesheet" href="{% static "MyDigitalBackpack/css/animate.css" %}"/>
+    <!-- <link rel="stylesheet" href="css/animate.css"> -->
+    <script type="text/javascript" src="{% static "MyDigitalBackpack/js/vendor/modernizr.js" %}"></script>
+    <!-- <script src="js/vendor/modernizr.js"></script> -->
+
+    <script type="text/javascript" src="{% static "MyDigitalBackpack/js/vendor/countdown.js" %}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+
+  </head>
+  <body>
+<!-- BODY START -->
+<a href="javascript:" id="return-to-top"><i class="fa fa-icon fa-chevron-up"></i></a>
+
+<section class="navigation">
+      <div class="nav-container">
+        <div class="brand">
+          <a href="/"> <img src="{% static "MyDigitalBackpack/images/main-logo.png" %}" class="main-logo"/></a>
+          <!-- <a href="index.html"><img src="images/main-logo.png" class="main-logo" /></a> -->
+        </div>
+        <nav>
+          <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+          <ul class="nav-list">
+            <!-- <li data-selected=""><a href="#">My Digital</a></li>
+            <li data-selected="about-page">
+              <a href="#">About</a>
+                <ul class="nav-dropdown">
+                    <li data-selected="story-page"><a href="story.html">Our Story</a></li>
+                    <li data-selected="how-to-use-page"><a href="how-to-use.html">How to Use</a></li>
+                    <li data-selected="faq-page"><a href="faq.html">FAQ's</a></li>
+                </ul>
+            </li>
+            <li data-selected="join-page">
+              <a href="#">Join Us</a>
+                <ul class="nav-dropdown">
+                    <li data-selected="ambassadors-page"><a href="ambassadors.html">Ambassadors</a></li>
+                    <li data-selected="contribute-page"><a href="contribute.html">Contribute</a></li>
+                </ul>
+            </li>
+            <li data-selected="contact-page"><a href="contact.html">Contact</a></li> -->
+            <li class="nav-social-li">
+              <ul class="nav-social-ul">
+                <li><a href="https://www.facebook.com/mydigitalbackpack/?hc_ref=SEARCH&fref=nf" target="_blank"><i class="fa fa-icon fa-facebook"></i></a></li>
+                <li><a href="https://twitter.com/mydigitalbp" target="_blank"><i class="fa fa-icon fa-twitter"></i></a></li>
+
+              </ul>
+            </li>
+          </ul>
+
+        </nav>
+        <div style="margin: auto; float: right;">
+          <a href="/login/" style="padding: 10px;">Login</a>
+          <a href="/signup" style="padding: 10px;">Signup</a>
+        </div>
+      </div>
+  </section>
+
+<!-- SECTION ONE START -->
+<div id="nav-indicator" data-link-selected="home-page"></div>
+<div id="section-one">
+    <div class="row">
+      <div class="columns small-12 medium-12 large-12">
+          <div class="top-box text-center">
+                <img src="{% static "MyDigitalBackpack/images/backpack.png" %}" class="backpack"/>
+                <!-- <img src="images/backpack.png" class="backpack" /> -->
+                <h1 class="header-large text-center text-white uppercase">My <span>Digital Backpack</span></h1>
+                <h3 class="header-small text-center text-white">Helping students organize, collaborate and showcase work on one digital hub.</h3>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="cta-box">
+            <h3 class="header-small text-center text-white">Free access for early subscribers!</h3>
+            <!-- <p class="body-p text-center text-white">Enter your email address to be one of our first users.</p> -->
+            <form action="thankyou/" method="POST">{% csrf_token %}
+              <input type="email" name="email" placeholder="Enter your email:">
+              <input type="submit" value="Send">
+              <!-- <input type="hidden" name="_next" value="/thankyou/" /> -->
+              <input type="text" name="_gotcha" style="display:none" />
+              <input type="hidden" name="_format" value="plain" />
+            </form>
+    </div>
+</div>
+<!-- SECTION ONE END -->
+
+<!-- SECTION TWO START -->
+<div id="section-two" class="section grey-bg-section">
+    <div class="row">
+            <div class="columns small-12 medium-12 large-12">
+                    <h2 class="header-medium text-center text-grey uppercase">Let MDB <span>Help You</span></h2>
+                    <p class="body-p text-center text-grey narrow">How many software platforms do you use to juggle academic assignments, personal projects, and start up work?  If you are all about efficiency, MDB is the student-tailored platform for you! MDB has a pocket to organize and prioritize tasks to hold students accountable, leading to time well spent on quality work and tracking deadlines. This personal backpack is your student tool to making sure your best foot is always forward, no matter what step along the journey.</p>
+            </div>
+    </div>
+
+    <div class="row icons">
+            <div id="icon-block" class="columns small-6 medium-6 large-3">
+                <div class="icon-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/icon1.png" %}" class="icon" id="icon1"/>
+                    <!-- <img src="images/icon1.png" class="icon" id="icon1" /> -->
+                </div>
+                <h4 class="header-tiny text-center text-grey uppercase">Project Management</h4>
+            </div>
+
+            <div id="icon-block" class="columns small-6 medium-6 large-3">
+                <div class="icon-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/icon2.png" %}" class="icon" id="icon2"/>
+                    <!-- <img src="images/icon2.png" class="icon" id="icon2" /> -->
+                </div>
+                <h4 class="header-tiny text-center text-grey uppercase">Organize and Collect Work</h4>
+            </div>
+
+            <div id="icon-block" class="columns small-6 medium-6 large-3">
+                <div class="icon-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/icon3.png" %}" class="icon" id="icon3"/>
+                    <!-- <img src="images/icon3.png" class="icon" id="icon3" /> -->
+                </div>
+                <h4 class="header-tiny text-center text-grey uppercase">Cloud Based</h4>
+            </div>
+
+            <div id="icon-block" class="columns small-6 medium-6 large-3">
+                <div class="icon-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/icon4.png" %}" class="icon" id="icon4"/>
+                    <!-- <img src="images/icon4.png" class="icon" id="icon4" /> -->
+                </div>
+                <h4 class="header-tiny text-center text-grey uppercase">Digital Platform</h4>
+            </div>
+
+    </div>
+</div>
+<!-- SECTION TWO END -->
+
+<!-- SECTION THREE START -->
+<div id="section-three" class="section white-bg-section">
+    <div class="row">
+            <div class="columns small-12 medium-12 large-12">
+                    <h2 class="header-medium text-center text-grey uppercase">Three <span>Pockets</span></h2>
+                    <p class="body-p text-center text-grey narrow">There will be three digital pockets that make up the foundation of a student's Digital Backpack. These initial three pockets are to help students organize, manage, and display their accumulated works.</p>
+            </div>
+    </div>
+
+    <div class="row pockets">
+            <div class="columns small-12 medium-4 large-4">
+                <img src="{% static "MyDigitalBackpack/images/pocket1.png" %}" class="pocket"/>
+                <!-- <img src="images/pocket1.png" class="pocket" /> -->
+                <h3 class="header-small text-left text-grey">Project</h3>
+                <p class="body-p text-left text-grey">The Project Pocket is where students organize and manage their creative, personal and professional works.</p>
+            </div>
+
+            <div class="columns small-12 medium-4 large-4">
+                <img src="{% static "MyDigitalBackpack/images/pocket2.png" %}" class="pocket"/>
+                <!-- <img src="images/pocket2.png" class="pocket" /> -->
+                <h3 class="header-small text-left text-grey">Portfolio</h3>
+                <p class="body-p text-left text-grey">The Portfolio Pocket is for students to display and showcase their polished projects. This personalized galleria is used to present to colleagues, professors,  potential investors and employers.</p>
+            </div>
+
+            <div class="columns small-12 medium-4 large-4">
+                <img src="{% static "MyDigitalBackpack/images/pocket3.png" %}" class="pocket"/>
+                <!-- <img src="images/pocket3.png" class="pocket" /> -->
+                <h3 class="header-small text-left text-grey">Purpose</h3>
+                <p class="body-p text-left text-grey">The Purpose Pocket is for students to build upon their personal goals, plans of action, visions, mission statements, inspirations and reflections, in order to track progress and stay motivated.</p>
+            </div>
+    </div>
+</div>
+<!-- SECTION THREE END -->
+
+<!-- SECTION FOUR START -->
+<div id="section-four" class="section grey-bg-section">
+    <div class="row">
+            <div class="columns small-12 medium-12 large-12">
+                    <h2 class="header-medium text-center text-grey uppercase">Digital <span>Bulletin Board</span></h2>
+                    <p class="body-p text-center text-grey narrow">Hi everyone, welcome to our new landing page! If you haven’t done so already, enter your email address at the top of the page to be one of the first users on board with MDB. We can’t wait to share our product with you, so you can organize the path to being successful!</p>
+                    <p class="body-p text-center text-grey">Beta Launch Date: <strong>March 30th 2017</strong></p>
+            </div>
+
+
+
+    </div>
+
+    <div class="row">
+            <div class="columns small-12 medium-12 large-12">
+                 <div class="clock-wrapper">
+                        <div class="clock"></div>
+                        <div class="message"></div>
+                  </div>
+            </div>
+    </div>
+</div>
+<!-- SECTION FOUR END -->
+
+<!-- SECTION FIVE START -->
+<div id="section-five" class="section white-bg-section">
+    <div class="columns small-12 medium-12 large-12">
+            <h2 class="header-medium text-center text-grey uppercase">For <span>Students</span> By <span>Students</span></h2>
+            <p class="body-p text-center text-grey narrow">The concept of MyDigital Backpack was developed in a classroom at Arizona State University. In the summer of 2016, the MyDigital Backpack team was thrilled to learn that they had won a spot in the Venture Devils Edson Cohort! The Edson Student Entrepreneur Initiative is providing the team with resources like funding, mentorship, and office space at Skysong propelling us onward.</p>
+            <img src="{% static "MyDigitalBackpack/images/asu.png" %}" class="asu-img"/>
+            <!-- <img src="images/asu.png" class="asu-img" /> -->
+    </div>
+
+    <div class="row team">
+
+            <div id="team-block" class="columns small-6 medium-4 large-2">
+                <div class="team-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/team2.png" %}" class="team" id="team2"/>
+                    <!-- <img src="images/team2.png" class="team" id="team2" /> -->
+                </div>
+                <h3 class="header-small text-center text-grey">Irelynn</h3>
+                <h4 class="header-tiny text-center text-grey uppercase">Team Lead</h4>
+            </div>
+
+            <div id="team-block" class="columns small-6 medium-4 large-2">
+                <div class="team-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/team1.png" %}" class="team" id="team1"/>
+                    <!-- <img src="images/team1.png" class="team" id="team1" /> -->
+                </div>
+                <h3 class="header-small text-center text-grey">Jessica</h3>
+                <h4 class="header-tiny text-center text-grey uppercase">Director of Product &amp; Design</h4>
+            </div>
+
+            <div id="team-block" class="columns small-6 medium-4 large-2">
+                <div class="team-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/team3.png" %}" class="team" id="team3"/>
+                    <!-- <img src="images/team3.png" class="team" id="team3" /> -->
+                </div>
+                <h3 class="header-small text-center text-grey">Kelly</h3>
+                <h4 class="header-tiny text-center text-grey uppercase">Director of Marketing</h4>
+            </div>
+
+            <div id="team-block" class="columns small-6 medium-4 large-2">
+                <div class="team-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/team4.png" %}" class="team" id="team4"/>
+                    <!-- <img src="images/team4.png" class="team" id="team4" /> -->
+                </div>
+                <h3 class="header-small text-center text-grey">Ivan</h3>
+                <h4 class="header-tiny text-center text-grey uppercase">Director of Operations</h4>
+            </div>
+
+            <div id="team-block" class="columns small-6 medium-4 large-2">
+                <div class="team-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/team5.png" %}" class="team" id="team5"/>
+                    <!-- <img src="images/team5.png" class="team" id="team5" /> -->
+                </div>
+                <h3 class="header-small text-center text-grey">Kevin</h3>
+                <h4 class="header-tiny text-center text-grey uppercase">Software Developer</h4>
+            </div>
+
+            <div id="team-block" class="columns small-6 medium-4 large-2">
+                <div class="team-holder text-center">
+                    <img src="{% static "MyDigitalBackpack/images/team6.png" %}" class="team" id="team6"/>
+                    <!-- <img src="images/team6.png" class="team" id="team6" /> -->
+                </div>
+                <h3 class="header-small text-center text-grey">Nick</h3>
+                <h4 class="header-tiny text-center text-grey uppercase">Campus Outreach</h4>
+            </div>
+
+    </div>
+</div>
+<!-- SECTION FIVE END -->
+
+<!-- FOOTER START -->
+<div id="footer">
+  <p class=" body-p text-center text-white">2016 Copyright My Digital Backpack</p>
+</div>
+<!-- FOOTER END -->
+
+<!-- BODY END -->
+    <script type="text/javascript" src="{% static "MyDigitalBackpack/js/vendor/jquery.js" %}"></script>
+    <!-- <script src="js/vendor/jquery.js"></script> -->
+    <script type="text/javascript" src="{% static "MyDigitalBackpack/js/foundation.min.js" %}"></script>
+    <!-- <script src="js/foundation.min.js"></script> -->
+    <script type="text/javascript" src="{% static "MyDigitalBackpack/js/jquery-1.11.0.min.js" %}"></script>
+    <!-- <script src="js/jquery-1.11.0.min.js"></script> -->
+
+    <script>
+        (function($) {
+          $(function() {
+            $('#nav-toggle').click(function() {
+              $('nav ul').toggle();
+            });
+            document.querySelector("#nav-toggle").addEventListener("click", function() {
+              this.classList.toggle("active");
+            });
+            $('nav ul li > a:not(:only-child)').click(function(e) {
+              $(this).siblings('.nav-dropdown').toggle();
+              $('.nav-dropdown').not($(this).siblings()).hide();
+              e.stopPropagation();
+            });
+            $('html').click(function() {
+              $('.nav-dropdown').hide();
+            });
+          });
+        })(jQuery);
+    </script>
+    <script>
+        jQuery(function(){
+            var highlight = document.getElementById('nav-indicator').dataset.linkSelected;
+            jQuery('[data-selected="' + highlight +'"]').addClass('selected');
+        });
+    </script>
+    <script>
+      $(window).scroll(function() {
+      if ($(window).scrollTop() >= 2) {
+          $('section.navigation').addClass('darknav');
+      } else {
+          $('section.navigation').removeClass('darknav');
+      }
+      });
+    </script>
+    <script>
+      // ===== Scroll to Top ====
+        $(window).scroll(function() {
+        if ($(this).scrollTop() >= 2) {        // If page is scrolled more than 50px
+            $('#return-to-top').fadeIn(1);    // Fade in the arrow
+        } else {
+            $('#return-to-top').fadeOut(1);   // Else fade out the arrow
+        }
+        });
+        $('#return-to-top').click(function() {  // When arrow is clicked
+        $('body,html').animate({
+            scrollTop : 0                       // Scroll to top of body
+        }, 1000);
+        });
+      </script>
+
+
+<!--  Flip Clock -->
+
+<script type="text/javascript" src="{% static "MyDigitalBackpack/js/flipclock.js" %}"></script>
+<!-- <script src="js/flipclock.js"></script> -->
+<script type="text/javascript">
+  var clock;
+  $(document).ready(function() {
+    var clock;
+    clock = $('.clock').FlipClock({
+          clockFace: 'DailyCounter',
+          autoStart: false,
+          callbacks: {
+            stop: function() {
+              $('.message').html('Ready!')
+            }
+          }
+      });
+      var end = new Date(2017, 2, 30).getTime() / 1000
+      var today = new Date().getTime() / 1000
+      clock.setTime(end-today);
+      clock.setCountdown(true);
+      clock.start();
+  });
+</script>
+
+  </body>
+</html>

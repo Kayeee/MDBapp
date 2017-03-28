@@ -1,0 +1,213 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+<meta charset="utf-8">
+<!-- <link rel="shortcut icon" type="image/x-icon" href="icons/favicon 128 x 128.png"> -->
+<link rel="shortcut icon" type="images/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}"/>
+<title>Dashboard</title>
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Lato Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css">
+
+<script>
+	var events = {{events|safe}};
+	var courses = {{courses|safe}};
+	var notes = {{notes|safe}};
+	var csrf = '{{csrf_token|safe}}'
+</script>
+<style>
+body {
+	font-family: 'Lato', sans-serif;
+}
+</style>
+
+<!-- Custom CSS -->
+<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/dashboard.css" %}">
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+</head>
+
+<body>
+<header>
+  <div id="topBar">
+	<div id="mdbLogo" class="col-lg-3 col-md-3 col-sm-3"> <img src="{% static "MyDigitalBackpack/images/icons/MDBlogo.png" %}"> </div>
+	<div id="userInfo" class="col-lg-2 col-lg-offset-6 col-md-2 col-md-offset-5 col-sm-3 col-sm-offset-4">
+		<h3 id="welcome"> Welcome </h3> <br/> <h5 id="studentName"> {{user.first_name}} {{user.last_name}} </h5>
+	</div>
+	<div id="userImage" class="col-lg-1 col-md-2 col-sm-2"> <img class="img-circle" src="{% static "MyDigitalBackpack/images/icons/profile.jpg" %}"></div>
+  </div>
+</header>
+
+<div id="secondBar">
+	<div class="col-sm-2 col-sm-offset-5 col-lg-2 col-lg-offset-5 col-md-2 col-md-offset-5"> <h1 id="week"> Week 9 </h1> </div>
+		<div id="leftArrow" class="col-sm-1 col-sm-offset-2 col-lg-1 col-lg-offset-2 col-md-1 col-md-offset-2"> <span class="glyphicon glyphicon-menu-left"></span> </div>
+		<div id="rightArrow" class="col-lg-1 col-md-1 col-sm-1"> <span class="glyphicon glyphicon-menu-right"> </span> </div>
+
+</div>
+
+<div id="timelineContainer">
+	<div id="viewType"  class="col-sm-1 col-md-1 col-lg-1">
+		<div class="selector day">
+			<h3> Day</h3>
+		</div>
+		<div class="selector week">
+			<h3> Week</h3>
+		</div>
+		<div class="selector month">
+			<h3> Month</h3>
+		</div>
+	</div>
+
+	<div id="timeline" class="col-sm-11 col-md-11 col-lg-11">
+		<div id="visualization"></div>
+	</div>
+</div>
+
+<div id="bottomRow">
+	<div id="organize" class="col-lg-2 col-md-2 col-sm-2">
+		<div class="header outer"> <h3> Organize</h3> </div>
+		  <div class="scroller ">
+				<div class="organizeSubHeader">
+					<div class="add_icon"> <!-- <img src="icons/addNote.png"> -->
+						<a href="/add_course/" style="opacity:.4" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image5','','icons/addNote.png',1)">
+						<img src="{% static "MyDigitalBackpack/images/icons/addNote_outline.png" %}" alt="" width="52" height="52" id="Image5"></a>
+					</div>
+			<h4> Classes</h4>
+			</div>
+			<div id="courses" class="classes">
+				<!-- <div class="course">
+						<div class="icon">
+							<img src="{% static "MyDigitalBackpack/images/icons/268.png" %}">
+						</div>
+				</div> -->
+			</div>
+			  <div class="organizeSubHeader"> <h4> Categories </h4> </div>
+			  <div id="sortOptions">
+				<div class="category"> <h4> Daily Tasks</h4> </div>
+				<div class="category"> <h4> Assignments</h4> </div>
+				<div class="category"> <h4> Quiz/Exams</h4> </div>
+			</div>
+		  </div>
+	</div>
+
+	<div id="listView" class="col-sm-8 col-md-8 col-lg-8">
+		<div class="header inner">
+			<h3> List View</h3>
+			<div class="add_icon"> <!-- <img src="icons/addNote.png"> -->
+				<!-- <a href="" style="opacity:.4" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image4','','icons/addNote.png',1)"> -->
+					<img id="add-task-image" src="{% static "MyDigitalBackpack/images/icons/addNote_outline.png" %}" alt="" width="52" height="52"/>
+				<!-- </a> -->
+			</div>
+		</div>
+
+		  <div class="scroller" id="up-next-container">
+				<!-- <div id="firstDay" class="listViewDay">
+					<h4> Day, Month Date </h4>
+				</div>
+				<div class="event">
+          <h4> <div class="iconEvent" style="background-color:#f47f31">
+            <img src="{% static "MyDigitalBackpack/images/icons/268.png" %}"> </div> Course Name Here
+          </h4>
+          <h6> Event Description Summary.... </h6>
+				</div>
+			<div id="secondDay" class="listViewDay"> <h4> Day, Month Date </h4> </div>
+			<div id="thirdDay" class="listViewDay"> <h4> Day, Month Date </h4> </div> -->
+		</div>
+	</div>
+
+	<!--Task Popup Element  -->
+	<div id="add-task-popup" class="popup">
+		<div class="popup-content">
+			<button class="cancel" id="task-cancel">Cancel</button>
+			<form method="post" id="new-task-form" action="/new_event_action/" enctype="multipart/form-data">
+				{% csrf_token %}
+				<label for="name">Event:</label>
+				<input id="name" type="text" name="name"><br/>
+				<label for="course">Course:</label>
+				<select id="event-pop-course" name="course">
+
+				</select></br>
+				<label for="due_date">Due Date:</label>
+				<input id="due_date" type="datetime-local" name="due_date"></br>
+				<label for="priority">Priority</label>
+				<select id="priority" name="priority">
+					<option value="0">Low</option>
+					<option value="1">Medium</option>
+					<option value="2">High</option>
+				</select><br/>
+				<button type="submit">Save</button>
+			</form>
+		</div>
+	</div>
+
+	<div id="notepad" class="col-lg-2 col-md-2 col-sm-2">
+		<div class="header outer"> <h3> Notepad</h3> </div>
+		  <div class="scroller">
+			<div class="organizeSubHeader">
+				<div class="add_icon"> <!-- <img src="icons/addNote.png"> -->
+					<!-- <a href="" style="opacity:.4" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image4','','icons/addNote.png',1)"> -->
+						<img id="add-note-image" src="{% static "MyDigitalBackpack/images/icons/addNote_outline.png" %}" alt="" width="52" height="52"/>
+					<!-- </a> -->
+				</div>
+				<h4> New Note</h4>
+			</div>
+			<div id="notes-container">
+				<!-- <div class="note">
+					<h4> Title Here </h4>
+					<h6> Note Summary Here...</h6>
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<!--Note Popup Element  -->
+	<div id="add-note-popup" class="popup">
+	  <div class="popup-content">
+	    <button class="cancel" id="note-cancel">Cancel</button>
+			<form method="post" action="/new_note_action/" id="new-note-form" enctype="multipart/form-data">
+		    {% csrf_token %}
+		    <label for="title">Title:</label>
+		    <input id="title" type="text" name="title"><br/>
+		    <textarea name="text" form="new-note-form">Enter text here...</textarea>
+		    <button type="submit">Save</button>
+		  </form>
+	  </div>
+	</div>
+<footer></footer>
+<script src="{% static "MyDigitalBackpack/js/dashboard.js" %}"></script>
+
+</body>
+</html>
