@@ -1,0 +1,175 @@
+<!doctype html>
+{% load static %}
+{% load extras %}
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="shortcut icon" type="image/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}">
+<title>Confirm</title>
+<!-- JQuery Remote File -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Lato Google Font -->
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<style>
+body {
+	font-family: 'Lato', sans-serif;
+}
+</style>
+<!-- Custom CSS -->
+<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/pages.css" %}">
+<!-- Custom JS -->
+<script type="text/javascript" src="{% static "MyDigitalBackpack/js/index.js" %}"> </script>
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<![endif]-->
+<script>
+var csrf = '{{csrf_token|safe}}'
+</script>
+
+</head>
+
+<body>
+<div class="leftBar col-sm-2 col-lg-2 col-md-2">
+	<div class="third darkThird">
+		<img src="{% static "MyDigitalBackpack/images/icons/megaphoneOutline.png" %}">
+		<h4>Create Account</h4>
+	</div>
+	<div class="third darkThird">
+		<img src="{% static "MyDigitalBackpack/images/icons/takeNotesOutline.png" %}">
+		<h4>Set Up A Class</h4>
+	</div>
+	<div class="third lightThird">
+		<img src="{% static "MyDigitalBackpack/images/icons/thumbsUpOutline.png" %}">
+		<h4>Confirm</h4>
+	</div>
+</div>
+
+<div class="whiteHeader col-sm-10 col-md-10 col-lg-10">
+	<div class="mdbLogo">
+		<img src="{% static "MyDigitalBackpack/images/icons/MDBlogo.png" %}">
+	</div>
+	<h2> How does everything look? </h2>
+</div>
+
+
+<div class=" confirmMain col-sm-10 col-md-10 col-lg-10">
+	<div class="confirmWindow col-sm-6 col-md-6 col-lg-6">
+		<div class="table">
+
+			<div class="tableHeader">
+				<div class="tableHeaderLeft" style="width: 100%;"> <h3> Tasks </h3> </div>
+			</div>
+			<div class="taskScroll">
+				{% for event in events %}
+				<div class="eventEntry">
+					<div class="x">
+						<img src="{% static "MyDigitalBackpack/images/icons/x.png" %}" style="height: 10px; width: 10px;">
+					</div>
+					<input type="date" name="due-date">
+					<!-- <h2 contenteditable="true"> {{ event.0 }} </h2> -->
+					<select id="priority" name="priority">
+		    		  <option value="0">Low</option>
+		      		<option value="1">Medium</option>
+		     		  <option value="2">High</option>
+		   			</select>
+					<h3 contenteditable="true"> {{event.1}}</h3>
+
+				</div>
+				{% endfor %}
+				<div class="addNewEvent">
+					<h2> Add New Task</h2>
+					<div id="addEventContainer">
+						<div class="addNewEventIcon" id="addEventIcon">  <img src="{% static "MyDigitalBackpack/images/icons/addNote_outline.png" %}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="classSummaryBox col-sm-6 col-md-6 col-lg-6">
+		<div class="summaryBox">
+			<div class="info">
+				<!--These attributes are based on what syllextract returns -->
+				<h3> Class:</h3> <h2 contenteditable="true" id="course_code"> {{ found_params.class_name }} </h2>
+				<h3> Professor: </h3> <h2 contenteditable="true" id="instructor_name"> {{ found_params.instructor}} </h2>
+				<h3> Email: </h3><h2 contenteditable="true" id="instructor_email"> {{ found_params.instructor_email }}</h2>
+				<h3> Office Hours:</h3><h2 contenteditable="true" id="instructor_office"> {{ found_params.instructor_office }}</h2>
+			</div>
+			<div class="classIcon">
+				<div id="classIconBack"> <img src="{% static "MyDigitalBackpack/images/icons/24_2.png" %}"> </div>
+			</div>
+		</div>
+		<div id="toDashboard">
+			<h1> Great, go to my dashboard <span class="glyphicon glyphicon-chevron-right"> </span></h1>
+		</div>
+	</div>
+</div>
+
+<script>
+
+$('body').on('click', '.x', function() {
+	console.log("here");
+	var row = $(this).parent();
+	row.remove();
+});
+
+$('#toDashboard').click(function() {
+
+	var events = [];
+	var course_info = {};
+	course_info["course_code"] = $('#course_code').text();
+	course_info["instructor_name"] = $('#instructor_name').text();
+	course_info["instructor_email"] = $('#instructor_email').text();
+	course_info["instructor_office"] = $('#instructor_office').text();
+
+	$('.taskScroll > .eventEntry').each(function() {
+
+		var dueDate = $(this).children('input').val(); //due_date
+		var name = $(this).children('h3').text(); //title
+		var priority = $(this).children('select').val(); //priority
+
+		events.push({"due_date": dueDate, "name": name, "priority": priority})
+	});
+	console.log(course_info)
+	console.log(events)
+
+	var data = {"events": JSON.stringify(events), "course_info": JSON.stringify(course_info), csrfmiddlewaretoken: csrf}
+	$.ajax({
+		url: "http://127.0.0.1:8000/confirm_course_action/",
+		type: 'POST',
+		data: data,
+		// dataType: 'json',
+		success: function(resp) {
+			var string = window.location.href.replace("/add_course/amend_course/", "/home/")
+			window.location.href = string;
+		},
+		error: function(resp) {
+			console.log("error")
+		}
+	});
+})
+
+$('#addEventIcon').click(function() {
+	$('.taskScroll').append(`
+		<div class="eventEntry">
+		<div class="x">
+			<img src="{% static "MyDigitalBackpack/images/icons/x.png" %}" style="height: 10px; width: 10px;">
+		</div>
+			<input type="date" name="due-date">
+			<select id="priority" name="priority">
+					<option value="0">Low</option>
+					<option value="1">Medium</option>
+					<option value="2">High</option>
+				</select>
+			<h3 contenteditable="true"> Title </h3>
+
+		</div>
+	`)
+});
+</script>
+</body>
+</html>

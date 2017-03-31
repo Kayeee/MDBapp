@@ -1,7 +1,7 @@
-var groups
+var groups = new vis.DataSet();
+var id_assoc_group = {};
 
 $(document).ready(function(){
-  groups = new vis.DataSet();
 
   function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -15,6 +15,16 @@ $(document).ready(function(){
       }
   });
 
+  //Dat nesting doe
+  if (jQuery.isEmptyObject(groups._data)){
+    for (var i = 0; i < courses.length; i++) {
+      groups.add({"id": i, "content": courses[i]})
+      if (!(courses[i] in id_assoc_group)){
+        id_assoc_group[courses[i]] = i;
+      }
+    }
+  }
+
   setBottomRowHeight();
   drawTimeline();
   setCourses();
@@ -26,14 +36,6 @@ $(document).ready(function(){
 
 function drawTimeline() {
   $('#visualization').empty();
-  var id_assoc_group = {};
-
-  for (var i = 0; i < courses.length; i++) {
-    groups.add({"id": i, "content": courses[i]})
-    if (!(courses[i] in id_assoc_group)){
-      id_assoc_group[courses[i]] = i;
-    }
-  }
 
   var dataSet = [];
   for (i = 0; i < events.length; i++) {
@@ -164,6 +166,9 @@ function initPopUps() {
       addTaskPopup.css('display', 'none');
       setUpNext();
       drawTimeline();
+    },
+    error: function(resp){
+      addTaskPopup.css('display', 'none')
     }
   });
 }

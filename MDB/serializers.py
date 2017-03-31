@@ -42,23 +42,22 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ('course_code', 'instructor_name', 'instructor_email', 'instructor_office')
 
-    # def create(self, validated_data):
-    #     print validated_data
-    #     course = Course.objects.create(
-    #
-    #         course_code=validated_data['course_code'],
-    #         instructor_name=validated_data['instructor_name'],
-    #         instructor_email=validated_data['instructor_email'],
-    #         instructor_office=validated_data['instructor_office']
-    #     )
-    #     return course
+    def create(self, validated_data):
+        print validated_data
+        course = Course.objects.create(
+            course_code=validated_data['course_code'],
+            instructor_name=validated_data['instructor_name'],
+            instructor_email=validated_data['instructor_email'],
+            instructor_office=validated_data['instructor_office']
+        )
+        return course
 
 
 class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields =('name', 'due_date', 'course', 'owner', 'priority')
+        fields =('id', 'name', 'due_date', 'course', 'owner', 'priority')
 
     def create(self, validated_data):
         event = Event.objects.create(

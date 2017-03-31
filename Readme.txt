@@ -10,3 +10,7 @@ run command: rabbitmq-server
 CELERY:
 Run from ~/Documents/MDB/MyDigitalBackpack2
 celery worker -A MDB.tasks -l info
+
+
+Running on Windows
+start env: navigate to teema folder. run: "env/Scripts/activate"

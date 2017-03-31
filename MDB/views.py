@@ -13,6 +13,7 @@ import models
 import serializers
 from syllextract import extract
 import tasks
+from datetime import datetime
 
 ###################### RENDERS ##################
 def landing(request):
@@ -70,7 +71,7 @@ def dashboard(request):
 
 def signup(request):
     form = forms.SignupForm()
-    return render(request, 'signup.html', {"form": form})
+    return render(request, 'create_account.html', {"form": form})
 
 def verify_number(request):
     return render(request, 'verify_number.html')
@@ -79,28 +80,32 @@ def verify_number(request):
 def add_course(request):
     return render(request, 'add_course.html')
 
-@api_view(['POST'])
 @login_required
 def amend_course(request):
     #Results from Uploading Syllabus
+    events = {}
+    found_params = {}
     if request.session.get('found_params'):
         found_params = request.session.get('found_params')
         del request.session['found_params']
 
         events = found_params["events"]
         del found_params["events"]
+        print events
     #Manual Config
     else:
-        found_params = dict(request.data)
-        del found_params['csrfmiddlewaretoken']
-        for key, value in found_params.iteritems():
-            found_params[key] = value[0]
+        try:
+            found_params = dict(request.POST)
+            if found_params['csrfmiddlewaretoken']:
+                del found_params['csrfmiddlewaretoken']
+            for key, value in found_params.iteritems():
+                found_params[key] = value[0]
+        except:
+            #everything is borken so just return empty info so it doens't crash
+            found_params = {}
+            events = {}
 
-        print found_params
-        events={}
-
-
-    return render(request, 'amend_course.html', {"found_params": found_params, "events": events})
+    return render(request, 'confirm_course.html', {"found_params": found_params, "events": events})
 
 @login_required
 def new_event(request):
@@ -133,7 +138,7 @@ def syllabi_upload_action(request):
         found_params = extract.main(myfile)
 
         request.session['found_params'] = found_params
-        return HttpResponseRedirect('/add_course/amend_course')
+        return HttpResponseRedirect('/add_course/amend_course/')
 
 @api_view(['POST'])
 def signup_action(request):
@@ -182,6 +187,7 @@ def new_event_action(request):
     serialized = serializers.EventSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
+        print serialized.data
         return HttpResponse(json.dumps(serialized.data), status=201)
     else:
         return HttpResponseRedirect('/new_event/')
@@ -201,8 +207,33 @@ def new_note_action(request):
 
 @login_required
 @api_view(['POST'])
-def confirm_course(request):
-    pass
+def confirm_course_action(request):
+    course_info = dict(json.loads(request.data['course_info']))
+    events = list(json.loads(request.data['events']))
+
+    print course_info
+    #TODO: A serializer SHOULD work for this....but doesn't
+    course = models.Course.objects.create(
+        course_code=course_info['course_code'],
+        instructor_name=course_info['instructor_name'],
+        instructor_email=course_info['instructor_email'],
+        instructor_office=course_info['instructor_office']
+    )
+
+    course.students.add(request.user)
+
+    # for event in events:
+    #     due_date = datetime.strptime(event['due_date'], '%Y-%m-%d')
+    #     print due_date
+    #     event = models.Event.objects.create(
+    #         owner=request.user,
+    #         name=event["name"],
+    #         priority=event["priority"],
+    #         due_date=event["due_date"],
+    #         course=course
+    #     )
+    return HttpResponse(status=201)
+
     # serialized = serializers.CourseSerializer(data=request.data)
     # if serialized.is_valid():
     #     serialized.save()

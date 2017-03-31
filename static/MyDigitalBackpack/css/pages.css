@@ -61,6 +61,34 @@ iframe {
     padding: 13px 0px;
     font-size: 16px; }
 
+a:link, a:visited {
+  text-decoration: none; }
+
+.buttonOne:hover {
+  background-color: #d45d0d;
+  cursor: pointer; }
+
+button[type="submit"] {
+  border: none;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 67px;
+  display: block;
+  background-color: #f47f31;
+  width: 200px;
+  color: white; }
+  button[type="submit"] h4 {
+    padding: 13px 0px;
+    font-size: 16px; }
+
+input[type="submit"]:hover, input[type="submit"]:active {
+  background-color: #d45d0d;
+  cursor: pointer; }
+
+button[type="submit"]:hover, button[type="submit"]:active {
+  background-color: #d45d0d;
+  cursor: pointer; }
+
 form {
   margin: 0 auto; }
 
@@ -84,9 +112,11 @@ input[type="text"].focus {
 
 .field input[type="password"] {
   left: 0;
-  margin-top: 25px;
   width: 75%;
   padding: 10px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 25px;
   border: solid 1px #dcdcdc;
   background-image: url(../images/icons/290.png);
   background-size: 6%;
@@ -111,35 +141,421 @@ input[type="text"].focus {
     width: 100%; }
 
 input[type="submit"] {
+  margin: 0 auto;
+  display: block;
   margin-top: 110px;
   width: 50%;
   background-color: #f47f31;
   height: 40px;
   border: none;
-  color: white; }
+  color: white;
+  z-index: 3; }
 
+/* End of Login/Register Page */
+.leftBar {
+  height: 101%;
+  padding: 0;
+  margin: 0; }
+
+.third {
+  height: 10px;
+  margin: 0 auto; }
+  .third img {
+    position: relative;
+    top: 43%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: block;
+    margin: 0 auto; }
+  .third h4 {
+    color: white;
+    position: relative;
+    top: 36%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: block;
+    margin: 0 auto; }
+
+.darkThird {
+  background-color: #0595a6; }
+
+.lightThird {
+  background-color: #50bec2; }
+
+.wholeRightSide {
+  height: 100%; }
+
+.or {
+  position: relative;
+  background-color: white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  top: 20px;
+  left: 20px;
+  z-index: 5; }
+  .or h3 {
+    font-size: 32px;
+    padding-top: 31px; }
+
+.formHalf {
+  background-color: #bfe8eb;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 5px white;
+  border-style: none solid none none; }
+
+.uploadHalf {
+  background-color: #bfe8eb;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 5px white;
+  border-style: none none none solid; }
+  .uploadHalf form {
+    position: relative;
+    top: 40%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: block;
+    margin: 0 auto; }
+
+.classForm {
+  display: block;
+  margin: 0 auto; }
+  .classForm h2 {
+    margin-top: 40px;
+    text-align: center; }
+  .classForm form {
+    margin-top: 25px; }
+  .classForm button[type="submit"] {
+    margin: 0 auto;
+    margin-top: 25px; }
+  .classForm input[type="text"] {
+    margin: 0 auto;
+    width: 70%;
+    display: block; }
+
+.whiteHeader {
+  position: relative;
+  height: 100px; }
+  .whiteHeader h2 {
+    float: right;
+    margin-top: -38px;
+    text-align: center;
+    width: 100%; }
+
+.inputfile + label {
+  display: block;
+  margin: 0 auto;
+  background-image: url(../images/icons/193_2.png);
+  background-size: 40%;
+  background-position: 50% 40%;
+  background-repeat: no-repeat;
+  text-align: center;
+  border-radius: 50%;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: white; }
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #50bec2;
+  color: #50bec2;
+  cursor: pointer; }
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1; }
+
+/* End of Add Course Page */
+/* Create Account Page */
+.noMiddleBorder {
+  border: none; }
+
+.inputProfile + label {
+  background-image: url(../images/icons/295.png);
+  background-size: 50%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat; }
+
+input[type="email"] {
+  background-color: white;
+  width: 70%;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  margin: 0 auto;
+  display: block;
+  transition: box-shadow 0.3s, border 0.3s;
+  -webkit-box-sizing: border-box;
+  /* For legacy WebKit based browsers */
+  -moz-box-sizing: border-box;
+  /* For legacy (Firefox <29) Gecko based browsers */
+  box-sizing: border-box; }
+
+input[type="email"]:focus,
+input[type="email"].focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696; }
+
+.passwordBoxDifferent input[type="submit"] {
+  margin: 0 auto;
+  display: block;
+  margin-top: 30px;
+  width: 50%;
+  background-color: #f47f31;
+  height: 40px;
+  border: none;
+  color: white;
+  z-index: 3; }
+.passwordBoxDifferent input[type="password"] {
+  width: 70%;
+  margin: 0 auto; }
+
+/* End of Page */
+/* start of Confirm coure page */
+.confirmMain {
+  height: 100%;
+  background-color: #bfe8eb; }
+
+.confirmWindow {
+  height: 100%;
+  vertical-align: middle; }
+
+.tableHeader {
+  height: 35px;
+  background-color: #ffc656;
+  position: relative;
+  margin-top: 30px; }
+  .tableHeader h3 {
+    font-size: 20px;
+    margin: 0;
+    padding-top: 5px;
+    text-align: center;
+    color: white;
+    width: 100%; }
+  .tableHeader h4 {
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 8px; }
+
+.tableHeaderLeft {
+  width: 85%;
+  float: left;
+  height: 34px; }
+
+.editButton {
+  width: 15%;
+  height: 34px;
+  float: right; }
+  .editButton h4 {
+    color: #f7f7f7; }
+
+.editButton:hover {
+  background-color: #f47f31;
+  color: #0595a6;
+  cursor: pointer; }
+
+.taskScroll {
+  background-color: white;
+  overflow-y: auto;
+  height: 100px;
+  width: 100%; }
+
+/*
+.editButton:hover {
+	background-color: $orange;
+	cursor: pointer;
+}
+*/
+select {
+  width: 20%;
+  height: 33px; }
+
+.eventEntry {
+  background-color: white;
+  overflow: hidden;
+  padding: 5px;
+  border: 1.5px lightgray;
+  border-style: solid none solid none; }
+  .eventEntry h2 {
+    width: 50%;
+    padding-top: 8px;
+    padding-left: 10px;
+    text-align: left;
+    float: left;
+    font-size: 16px;
+    margin: 0; }
+  .eventEntry h3 {
+    text-align: right;
+    float: right;
+    width: 30%;
+    padding-top: 9px;
+    padding-right: 10px;
+    font-size: 14px;
+    margin: 0; }
+
+.addNewEvent {
+  width: 100%;
+  height: 45px;
+  background-color: lightgray;
+  position: absolute;
+  bottom: 150px;
+  z-index: 5; }
+  .addNewEvent h2 {
+    display: inline-block;
+    width: 80%;
+    text-align: left;
+    margin: 0;
+    margin-left: 10px;
+    margin-top: 3px;
+    font-size: 18px;
+    padding-top: 10px; }
+
+#addEventContainer {
+  margin-top: 5px;
+  width: 15%;
+  float: right;
+  height: 30px; }
+
+.addNewEventIcon {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  background-color: white; }
+  .addNewEventIcon img {
+    opacity: .5;
+    display: block;
+    margin: 0 auto;
+    height: 101%; }
+
+.addNewEventIcon:hover {
+  background-color: #bfe8eb;
+  cursor: pointer; }
+
+.summaryBox {
+  background-color: #4ec0c3;
+  overflow: hidden;
+  padding: 10px;
+  width: 100%;
+  margin-top: 30px; }
+
+.info {
+  margin-top: 5px;
+  float: left;
+  width: 65%;}
+  .info h2 {
+    font-size: 20px;
+    background-color: #8fcbd1;
+    text-align: left;
+    margin: 0px;
+    margin-left: 15px;
+    margin-top: 2px;
+    color: white; }
+  .info h3 {
+    font-size: 15px;
+    text-align: left;
+    margin: 0px;
+    margin-left: 15px;
+    color: white; }
+
+.classIcon {
+  width: 25%;
+  float: left;
+  margin-left: 15px; }
+
+#editClassButton {
+  height: 25px;
+  width: 110px; }
+  #editClassButton h3 {
+    text-align: center;
+    color: white;
+    margin: 0;
+    margin: 10px 0px;
+    padding: 0;
+    font-size: 20px; }
+
+#editClassButton:hover {
+  background-color: #0595a6;
+  cursor: pointer; }
+
+#classIconBack {
+  margin-top: 10px;
+  width: 110px; }
+  #classIconBack img {
+    width: 100%; }
+
+#toDashboard {
+  position: relative;
+  margin-top: 10%;
+  background-color: #f47f31;
+  width: 100%;
+  height: 45px;
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em; }
+  #toDashboard h1 {
+    font-size: 22px;
+    text-align: left;
+    padding-left: 10px;
+    padding-top: 9px;
+    color: white; }
+
+#toDashboard:hover {
+  cursor: pointer;
+  background-color: #ffc656; }
+
+.glyphicon-chevron-right {
+  float: right;
+  margin-right: 30px; }
+
+/* end of confirm course page */
+@media screen and (max-width: 1000px) {
+  #editClassButton {
+    margin-top: 20px;
+    height: 25px;
+    width: 80px; }
+
+  #classIconBack img {
+    width: 75%; }
+
+  .glyphicon-chevron-right {
+    margin-right: 20px; } }
 /* tablet view */
+@media screen and (max-width: 850px) {
+  #toDashboard h1 {
+    font-size: 20px;
+    padding-top: 10px; } }
 @media screen and (max-width: 800px) {
-  .selector h3 {
-    font-size: 1em;
-    margin-top: 34px; }
+  #editClassButton {
+    margin-top: 30px;
+    height: 25px;
+    width: 70px; }
 
-  iframe {
-    width: 400px;
-    height: 155px; } }
+  #classIconBack img {
+    width: 65%; }
+
+  #toDashboard h1 {
+    font-size: 17px;
+    padding-top: 13px; } }
 /*# sourceMappingURL=styles.css.map */
 
 /*# sourceMappingURL=pages.css.map */
 
-/* Kevin's CSS */
-a:link, a:visited {
-  text-decoration: none;
-}
-
-.buttonOne:hover {
-  background-color: #d45d0d;
-}
-
-input[type="submit"]:hover, input[type="submit"]:active {
-  background-color: #d45d0d;
+.x {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
 }
