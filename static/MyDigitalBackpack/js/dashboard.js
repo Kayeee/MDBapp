@@ -100,7 +100,7 @@ function setUpNext() {
       dateContainer = container.append('<div class="listViewDay"><h4>' + eventDate.toDateString()+ '</h4></div>');
       previousDate = eventDate
     }
-    dateContainer.append('<div class="event"><h6>' + events[i].name + '</h6></div>')
+    dateContainer.append('<div class="event"><h4 style="text-align: center;">' + events[i].name + '</h4></div>')
   }
 }
 

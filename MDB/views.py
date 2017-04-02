@@ -14,6 +14,7 @@ import serializers
 from syllextract import extract
 import tasks
 from datetime import datetime
+from pytz import timezone
 
 ###################### RENDERS ##################
 def landing(request):
@@ -172,9 +173,9 @@ def submit_number_action(request):
 def check_verified_action(request):
     user = request.user
     if tasks.number_is_validated(user.phone_number):
-        user.number_validated = True
+        user.number_verified = True
         user.save()
-        return HttpResponseRedirect('/new_event/')
+        return HttpResponseRedirect('/add_course/')
     else:
         return HttpResponseRedirect('/verify_number/', {"message": "Verification Failed"})
 
@@ -222,16 +223,18 @@ def confirm_course_action(request):
 
     course.students.add(request.user)
 
-    # for event in events:
-    #     due_date = datetime.strptime(event['due_date'], '%Y-%m-%d')
-    #     print due_date
-    #     event = models.Event.objects.create(
-    #         owner=request.user,
-    #         name=event["name"],
-    #         priority=event["priority"],
-    #         due_date=event["due_date"],
-    #         course=course
-    #     )
+    for event in events:
+        due_date = datetime.strptime(event['due_date'], '%Y-%m-%d')
+        print due_date
+        psf = timezone('US/Pacific')
+        time = psf.localize(due_date)
+        event = models.Event.objects.create(
+            owner=request.user,
+            name=event["name"],
+            priority=event["priority"],
+            due_date=time,
+            course=course
+        )
     return HttpResponse(status=201)
 
     # serialized = serializers.CourseSerializer(data=request.data)

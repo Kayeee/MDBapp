@@ -18,7 +18,6 @@ class MDBUserManager(BaseUserManager):
             phone_number=phone_number,
         )
 
-        print "here"
         user.set_password(password)
         user.save(using=self._db)
         return user

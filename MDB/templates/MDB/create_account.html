@@ -1,11 +1,12 @@
-<!doctype html>
+<!doctype html
+{% load static %}
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="shortcut icon" type="image/x-icon" href="favicons/favicon 128 x 128.png">
+<link rel="shortcut icon" type="image/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}">
 <title>Create Account</title>
-<!-- JQuery Local File -->
-<script type="text/javascript" src="js/jquery-1.12.4.js"> </script>
+<!-- JQuery Remote File -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- Latest compiled and minified JavaScript -->
@@ -18,9 +19,9 @@ body {
 }
 </style>
 <!-- Custom CSS -->
-<link rel="stylesheet"  type="text/css" href="css/pages.css">
+<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/pages.css" %}">
 <!-- Custom JS -->
-<script type="text/javascript" src="js/index.js"> </script>
+<script type="text/javascript" src="{% static "MyDigitalBackpack/js/index.js" %}"> </script>
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
@@ -32,27 +33,27 @@ body {
 
 <div class="leftBar col-sm-2 col-lg-2 col-md-2">
 	<div class="third lightThird">
-		<img src="images/183 - Megaphone (Outline).png">
+		<img src="{% static "MyDigitalBackpack/images/icons/megaphoneOutline.png" %}">
 		<h4>Create Account</h4>
 	</div>
 	<div class="third darkThird">
-		<img src="images/24 - Take Notes (Outline).png">
+		<img src="{% static "MyDigitalBackpack/images/icons/takeNotesOutline.png" %}">
 		<h4>Set Up A Class</h4>
 	</div>
 	<div class="third darkThird">
-		<img src="images/190 - Thumbs Up (Outline).png">
+		<img src="{% static "MyDigitalBackpack/images/icons/thumbsUpOutline.png" %}">
 		<h4>Confirm</h4>
 	</div>
-	
-	
+
+
 	</div>
 
 <div class="whiteHeader col-sm-10 col-md-10 col-lg-10">
 
 	<div class="mdbLogo">
-		<img src="images/MDBlogo.png">
-	</div>	
-	
+		<img src="{% static "MyDigitalBackpack/images/icons/MDBlogo.png" %}">
+	</div>
+
 	<h2> Let's get to know you! </h2>
 
 </div>
@@ -63,36 +64,29 @@ body {
 
 
 <div class="classForm field passwordBoxDifferent">
-
-<form id="test" action="/signup_action/" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="4s352M32o4IInZmzpKoeponhAdKDIJAmfMIa0uMz7YscrthMjpVXJuUld89cLVOY" />
-<label for="id_email"></label> <input placeholder="Email address" id="id_email" maxlength="255" name="email" type="email" required />
-<label for="id_first_name"></label> <input placeholder="First name" id="id_first_name" maxlength="30" name="first_name" type="text" required />
-<label for="id_last_name"></label> <input placeholder="Last name" id="id_last_name" maxlength="30" name="last_name" type="text" required />
-<label for="id_date_of_birth"></label> <input placeholder="Date of birth - year - month - day" id="id_date_of_birth" name="date_of_birth" type="text"  required />
-      <label for="password"></label>
-      <input type="password" name="password" placeholder="Password"/>
-
-    <input type="submit" value="Sign Up">
+	<form id="test" action="/signup_action/" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="4s352M32o4IInZmzpKoeponhAdKDIJAmfMIa0uMz7YscrthMjpVXJuUld89cLVOY" />
+		{% csrf_token %}
+		<input placeholder="Email address" id="id_email" maxlength="255" name="email" type="email" required />
+	 	<input placeholder="First name" id="id_first_name" maxlength="30" name="first_name" type="text" required />
+	 	<input placeholder="Last name" id="id_last_name" maxlength="30" name="last_name" type="text" required />
+	 	<input id="id_date_of_birth" name="date_of_birth" type="date"  required />
+		<input type="password" name="password" placeholder="Password"/>
+	  <input type="submit" value="Sign Up">
   </form>
 </div>
-	
-	
-	
+
+
+
 </div>
 
 <div class="uploadHalf noMiddleBorder col-sm-5 col-md-5 col-lg-5">
-
-<!-- {% load static %}
-
-{% block content %} -->
-  <form method="post" action="/syllabi_upload_action/" enctype="multipart/form-data">
- <!--   {% csrf_token %} -->
+  <!-- <form method="post" action="/syllabi_upload_action/" enctype="multipart/form-data">
+   {% csrf_token %}
     <input type="file" name="myfile" id="file" class="inputfile inputProfile">
     <label for="file"></label>
     <button type="submit">Upload</button>
-    
-  </form>
-<!-- {% endblock %} -->
+
+  </form> -->
 </div>
 
 

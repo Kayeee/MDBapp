@@ -105,6 +105,16 @@ input[type="text"] {
   /* For legacy (Firefox <29) Gecko based browsers */
   box-sizing: border-box; }
 
+  input[type="date"] {
+    background-color: white;
+    width: 75%;
+    padding: 10px;
+    border: solid 1px #dcdcdc;
+    transition: box-shadow 0.3s, border 0.3s;
+    -webkit-box-sizing: border-box;
+  }
+
+
 input[type="text"]:focus,
 input[type="text"].focus {
   border: solid 1px #707070;
@@ -239,6 +249,10 @@ input[type="submit"] {
     margin: 0 auto;
     width: 70%;
     display: block; }
+    .classForm input[type="date"] {
+      margin: 0 auto;
+      width: 70%;
+      display: block; }
 
 .whiteHeader {
   position: relative;
@@ -381,6 +395,10 @@ input[type="email"].focus {
 	cursor: pointer;
 }
 */
+.scroller {
+  overflow-y: auto;
+  height: 50px; }
+  
 select {
   width: 20%;
   height: 33px; }
@@ -407,6 +425,25 @@ select {
     padding-right: 10px;
     font-size: 14px;
     margin: 0; }
+
+.event {
+  height: 40px; }
+  .event h4 {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 2px;
+    padding-bottom: 0px; }
+  .event h6 {
+    text-align: center;
+    font-size: 13px;
+    margin: 0;
+    color: #212121; }
+
+.event:hover {
+  box-shadow: 2px 0px 5px 2px lightGray;
+  cursor: pointer; }
 
 .addNewEvent {
   width: 100%;
