@@ -139,7 +139,7 @@ $('#toDashboard').click(function() {
 
 	var data = {"events": JSON.stringify(events), "course_info": JSON.stringify(course_info), csrfmiddlewaretoken: csrf}
 	$.ajax({
-		url: "http://127.0.0.1:8000/confirm_course_action/",
+		url: window.location.href.replace("/add_course/amend_course/", "/confirm_course_action/"),
 		type: 'POST',
 		data: data,
 		// dataType: 'json',

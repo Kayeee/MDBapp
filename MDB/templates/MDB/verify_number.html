@@ -86,7 +86,7 @@ body {
 <div class="classForm field passwordBoxDifferent">
   <h3 class="header-small text-center text-white">Insert Phone Number</h3>
   <form id="submit_number">{% csrf_token %}
-    <input type="text" name="number"/>
+    <input placeholder="+1XXXXXXXXXX"  type="text" name="number"/>
     <input type="submit" value="Verify">
     <span style="color: red;">{{message}}</span>
   </form>

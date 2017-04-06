@@ -25,7 +25,7 @@ SECRET_KEY = 'w4o*n4+u(-=_=61rwm=pn^9-ekexfhky7*znp@vm9k+kfpryj9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.DigitalBackpackHub.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['.DigitalBackpackHub.com', '127.0.0.1', 'localhost', '54.90.246.52']
 
 BROKER_URL = 'localhost:5672'
 
