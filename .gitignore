@@ -1,10 +1,11 @@
 ####### CUSTOM IGNORES #######
 *.pyc
-*/migrations/*
+MDB/migrations/
 *.DS_Store
 *.request
 *.pem
 line.select
+migrations/
 
 ###### COPIES IGNORES #######
 # Byte-compiled / optimized / DLL files
