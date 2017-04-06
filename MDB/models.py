@@ -22,7 +22,7 @@ class MDBUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, first_name, last_name, date_of_birth, phone_number, password):
+    def create_superuser(self, email, first_name, last_name, date_of_birth, password, phone_number="+1"):
 
         user = self.create_user(
             email,
@@ -30,6 +30,7 @@ class MDBUserManager(BaseUserManager):
             last_name=last_name,
             date_of_birth=date_of_birth,
             phone_number = phone_number,
+ 	    password=password,
         )
         user.is_admin = True
         user.set_password(password)

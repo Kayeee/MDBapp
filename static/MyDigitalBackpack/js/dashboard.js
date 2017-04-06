@@ -58,7 +58,7 @@ function drawTimeline() {
 
         //TODO: Show alert to confirm delete.
         $.ajax({
-          url: "http://127.0.0.1:8000/delete_event/",
+          url: window.location.href.replace("/home/", "/delete_event/"),
           type: 'DELETE',
           data: {eventID: item.id, csrfmiddlewaretoken: csrf},
           // dataType: 'json',
