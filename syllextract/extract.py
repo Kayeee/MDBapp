@@ -112,7 +112,8 @@ def main(passed_file):
     file_path = passed_file.name
 
     if file_path[-4:] == ".doc":
-        subprocess.call(['soffice', '--headless', '--convert-to', 'docx', file_path])
+        pass
+        # subprocess.call(['soffice', '--headless', '--convert-to', 'docx', file_path])
 
     elif file_path[-5:] == ".docx":
         d = docx.Document(passed_file)
