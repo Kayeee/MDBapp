@@ -12,4 +12,14 @@
 3. sudo apt-get install mysql-server\
 4. sudo mysql_secure_installation\
 5. sudo apt-get install rabbitmq-server\
-6. }
+6. pull git code.\
+7. empty migrations folder\
+8. sudo apt-get install libmysqlclient-dev\
+8. pip install -r requirements.txt\
+9. check for any failure  \
+\
+MIGRATE DATABASE\
+1. python manage.py migrate auth\
+2. python manage.py makemigrations MDB\
+3. python manage.py migrate MDB\
+4. python manage.py migrate admin}
