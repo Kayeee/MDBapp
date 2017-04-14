@@ -18,7 +18,7 @@ $(document).ready(function(){
   //Dat nesting doe
   if (jQuery.isEmptyObject(groups._data)){
     for (var i = 0; i < courses.length; i++) {
-      groups.add({"id": i, "content": courses[i]})
+      groups.add({"id": i, "content": courses[i], "color": {background: "red"}})
       if (!(courses[i] in id_assoc_group)){
         id_assoc_group[courses[i]] = i;
       }
@@ -51,6 +51,11 @@ function drawTimeline() {
     var items = new vis.DataSet(dataSet);
     var options = {
       height: '300px',
+      //TODO: make these dates dynamic
+      min: new Date(2017, 0, 1),
+      max: new Date(2017, 5, 30),
+      zoomMin: 1000 * 60 * 60 * 12,
+      zoomMax: 1000 * 60 * 60 * 24 * 31 * 6,
       editable: {
         remove: true
       },
@@ -96,7 +101,7 @@ function setUpNext() {
 
   for (var i = 0; i < events.length; i++) {
     eventDate = new Date(events[i].due_date);
-    if (eventDate.getDate() > previousDate.getDate()){
+    if (eventDate > previousDate){
       dateContainer = container.append('<div class="listViewDay"><h4>' + eventDate.toDateString()+ '</h4></div>');
       previousDate = eventDate
     }

@@ -106,6 +106,8 @@ var csrf = '{{csrf_token|safe}}'
 		<div id="toDashboard">
 			<h1> Great, go to my dashboard <span class="glyphicon glyphicon-chevron-right"> </span></h1>
 		</div>
+		<div id="error-message">
+		</div>
 	</div>
 </div>
 
@@ -148,7 +150,8 @@ $('#toDashboard').click(function() {
 			window.location.href = string;
 		},
 		error: function(resp) {
-			console.log("error")
+			console.log(resp.responseText);
+			$('#error-message').text(resp.responseText);
 		}
 	});
 })

@@ -7,14 +7,23 @@ from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from django.shortcuts import redirect
 
+import logging
 import json
 import forms
 import models
 import serializers
-from syllextract import extract
 import tasks
+
+from syllextract import extract
 from datetime import datetime
 from pytz import timezone
+
+logging.basicConfig(
+    filename='views.log',
+    level=logging.DEBUG,
+    format='%(asctime)s %(message)s',
+    datefmt='%m/%d/%Y %I:%M:%S %p'
+)
 
 ###################### RENDERS ##################
 def landing(request):
@@ -214,38 +223,37 @@ def confirm_course_action(request):
 
     print course_info
     #TODO: A serializer SHOULD work for this....but doesn't
-    course = models.Course.objects.create(
-        course_code=course_info['course_code'],
-        instructor_name=course_info['instructor_name'],
-        instructor_email=course_info['instructor_email'],
-        instructor_office=course_info['instructor_office']
-    )
+    try:
+        course = models.Course.objects.create(
+            course_code=course_info['course_code'],
+            instructor_name=course_info['instructor_name'],
+            instructor_email=course_info['instructor_email'],
+            instructor_office=course_info['instructor_office']
+        )
+    except:
+        logging.debug("ERROR User: {0} -- Course Info: {0}".format(request.user, course_info))
+        return HttpResponse("Problem with course info", status=500)
+
+    try:
+        for event in events:
+            due_date = datetime.strptime(event['due_date'], '%Y-%m-%d')
+            print due_date
+            psf = timezone('US/Pacific')
+            time = psf.localize(due_date)
+            event = models.Event.objects.create(
+                owner=request.user,
+                name=event["name"],
+                priority=event["priority"],
+                due_date=time,
+                course=course
+            )
+    except:
+        logging.debug("ERROR User: {0} -- Events: {1}".format(request.user, events))
+        return HttpResponse("Problem with event info", status=500)
 
     course.students.add(request.user)
 
-    for event in events:
-        due_date = datetime.strptime(event['due_date'], '%Y-%m-%d')
-        print due_date
-        psf = timezone('US/Pacific')
-        time = psf.localize(due_date)
-        event = models.Event.objects.create(
-            owner=request.user,
-            name=event["name"],
-            priority=event["priority"],
-            due_date=time,
-            course=course
-        )
     return HttpResponse(status=201)
-
-    # serialized = serializers.CourseSerializer(data=request.data)
-    # if serialized.is_valid():
-    #     serialized.save()
-    #     print serialized.data
-    #     request.session['found_params'] = serialized.data
-    #
-    #     return HttpResponseRedirect('/add_course/amend_course/')
-    # else:
-    #     return HttpResponseRedirect('/add_course/')
 
 @login_required
 @api_view(['DELETE'])
