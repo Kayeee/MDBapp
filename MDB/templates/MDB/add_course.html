@@ -30,8 +30,6 @@ body {
 </head>
 
 <body>
-
-
 <div class="leftBar col-sm-2 col-lg-2 col-md-2">
 	<div class="third darkThird">
 		<img src="{% static "MyDigitalBackpack/images/icons/megaphoneOutline.png" %}">
@@ -58,47 +56,47 @@ body {
 	<h2> Alright, Lets Dive In. Set up one of your classes! </h2>
 
 	<div class="or">
-	<h3> Or</h3>
+		<h3> Or</h3>
 	</div>
-
 </div>
 
 
 <div class="formHalf col-sm-5 col-md-5 col-lg-5">
-
-
-
-<div class="classForm">
-
-
-
-	<h2> Add Info</h2>
-	<form method="post" action="amend_course/" enctype="multipart/form-data">
- {% csrf_token %}
- <input type="text" name="class_name" placeholder="Course Name"><br> <!-- REQUIRED -->
- <input type="text" name="instructor" placeholder="Professor"><br><!-- CAN BE LEFT BLANK -->
- <input type="text" name="instructor_email" placeholder="Professor's Email"><br><!-- CAN BE LEFT BLANK -->
- <input type="text" name="instructor_office" placeholder="Professor's Office Location/Hours"><br><!-- CAN BE LEFT BLANK -->
- <button type="submit">Next</button>
-</form>
-</div>
-
-
-
+	<div class="classForm">
+		<h2> Add Info</h2>
+		<form method="post" action="amend_course/" enctype="multipart/form-data">
+		 {% csrf_token %}
+		 <input type="text" name="class_name" placeholder="Course Name"><br> <!-- REQUIRED -->
+		 <input type="text" name="instructor" placeholder="Professor"><br><!-- CAN BE LEFT BLANK -->
+		 <input type="text" name="instructor_email" placeholder="Professor's Email"><br><!-- CAN BE LEFT BLANK -->
+		 <input type="text" name="instructor_office" placeholder="Professor's Office Location/Hours"><br><!-- CAN BE LEFT BLANK -->
+		 <button type="submit">Next</button>
+		</form>
+	</div>
 </div>
 
 <div class="uploadHalf col-sm-5 col-md-5 col-lg-5">
-
-
+	<h2>Upload a Syllabus</h2>
   <form method="post" action="/syllabi_upload_action/" enctype="multipart/form-data">
    {% csrf_token %}
     <input type="file" name="myfile" id="file" class="inputfile">
     <label for="file"></label>
-    <button type="submit">Upload</button>
-
+		<h4 id="file-path"></h4>
+		<h4>(Format must be ".docx")</h4>
+    <button id="upload-btn" type="submit" disabled>Upload</button>
   </form>
 </div>
 
 
 </body>
+<script>
+$('input[name="myfile"]').change(function(){
+    var fileName = $(this).val();
+		var substring = fileName.split('\\');
+    $('#file-path').text(substring.pop());
+
+		$("#upload-btn").prop("disabled", false);
+});
+</script>
+
 </html>

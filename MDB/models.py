@@ -153,6 +153,7 @@ class Event(models.Model):
     def schedule_reminder(self):
         from tasks import send_sms_reminder
         result_ids = []
+        now = datetime.datetime.now().replace(tzinfo=timezone('UTC'))
 
         #make 1 day reminder
         result_ids.append(send_sms_reminder.apply_async(args=[self.pk, self.owner.pk], eta=self._make_date(1)))
@@ -160,11 +161,16 @@ class Event(models.Model):
         print "Priority: {0}".format(self.priority)
         #make 3 day reminder
         if self.priority >= 1:
-            result_ids.append(send_sms_reminder.apply_async(args=[self.pk, self.owner.pk], eta=self._make_date(3)))
+            eta = self._make_date(3)
+            if eta > now:
+                result_ids.append(send_sms_reminder.apply_async(args=[self.pk, self.owner.pk], eta=eta))
 
         #make 7 day reminder:
         if self.priority >= 2:
-            result_ids.append(send_sms_reminder.apply_async(args=[self.pk, self.owner.pk], eta=self._make_date(7)))
+            eta = self._make_date(7)
+
+            if eta > now:
+                result_ids.append(send_sms_reminder.apply_async(args=[self.pk, self.owner.pk], eta=eta))
 
         return result_ids
 

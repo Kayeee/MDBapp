@@ -1,24 +1,4 @@
-
-<!-- <h3 class="header-small text-center text-white">Insert Phone Number</h3> -->
-<!-- <form id="submit_number">{% csrf_token %}
-  <input type="text" name="number"/>
-  <input type="submit" value="Verify">
-  <span style="color: red;">{{message}}</span>
-</form> -->
-
-<!--  Display Errors -->
-<!-- <div id="error-container" style="color: red;"></div> -->
-
-<!--  Verify Number Area-->
-<!-- <div id="instruct-container">
-  <h3 id="code-label">Your code: </h3>
-  <span>You should receive a call momentairly.</span>
-  <div id="continue">
-    <span>Once validated, click <a href="/check_verified_action/">here</a> to continue</span>
-  </div>
-</div> -->
-
-<!doctype html
+<!doctype html>
 {% load static %}
 <html>
 <head>
@@ -42,6 +22,7 @@ body {
 <link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/pages.css" %}">
 <!-- Custom JS -->
 <script type="text/javascript" src="{% static "MyDigitalBackpack/js/index.js" %}"> </script>
+<script type="text/javascript" src="{% static "MyDigitalBackpack/js/numberValidator.js" %}"> </script>
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
@@ -86,10 +67,12 @@ body {
 <div class="classForm field passwordBoxDifferent">
   <h3 class="header-small text-center text-white">Insert Phone Number</h3>
   <form id="submit_number">{% csrf_token %}
-    <input placeholder="+1XXXXXXXXXX"  type="text" name="number"/>
-    <input type="submit" value="Verify">
+    <input id="number-field" placeholder="XXX-XXX-XXXX"  type="text" name="number"/>
+
     <span style="color: red;">{{message}}</span>
+		<span id="invalid-number"></span>
   </form>
+	<button id="submit-button">Verify</button>
   <div id="instruct-container">
     <h3 id="code-label">Your code: </h3>
     <span>You should receive a call momentairly.</span>
@@ -110,24 +93,30 @@ $(document).ready(function() {
     $('#instruct-container').hide();
     $('#continue').hide();
 
-    $("#submit_number").submit(function(event){
-        $.ajax({
-             type:"POST",
-             url:"/submit_number_action/",
-             data: $('#submit_number').serialize(),
-             success: function(data){
-                 $('#instruct-container').show(100);
-                 $('#continue').show(100); //may not need this line
-                 $('#code-label').append(data);
-             },
-             error: function(data){
-               $('#error-container').append('<h3>' + data['responseText'] + '</h3>')
-             }
-        });
-        return false;
-   });
 
+    $("#submit-button").click(function() {
+			var text = $('#number-field').val();
+			if (verifyNumber(text)){
+				$.ajax({
+						 type:"POST",
+						 url:"/submit_number_action/",
+						 data: $('#submit_number').serialize(),
+						 success: function(data){
+								 $('#instruct-container').show(100);
+								 $('#continue').show(100); //may not need this line
+								 $('#code-label').append(data);
+						 },
+						 error: function(data){
+							 $('#error-container').append('<h3>' + data['responseText'] + '</h3>')
+						 }
+				});
+			} else {
+				$('#invalid-number').text('Invalid number format. Try: XXX-XXX-XXXX.')
+			}
+
+   });
 });
+
 </script>
 </body>
 </html>

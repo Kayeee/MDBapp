@@ -2,30 +2,34 @@
 {% load static %}
 <html>
 <head>
-<meta charset="utf-8">
-<link rel="shortcut icon" type="image/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}">
-<title>Create Account</title>
-<!-- JQuery Remote File -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Lato Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<style>
-body {
-	font-family: 'Lato', sans-serif;
-}
-</style>
-<!-- Custom CSS -->
-<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/pages.css" %}">
-<!-- Custom JS -->
-<script type="text/javascript" src="{% static "MyDigitalBackpack/js/index.js" %}"> </script>
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<![endif]-->
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}">
+	<title>Create Account</title>
+	<!-- JQuery Remote File -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Lato Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<style>
+	body {
+		font-family: 'Lato', sans-serif;
+	}
+	</style>
+	<!-- Custom CSS -->
+	<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/pages.css" %}">
+	<!-- Custom JS -->
+	<script type="text/javascript" src="{% static "MyDigitalBackpack/js/index.js" %}"> </script>
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<![endif]-->
 
+
+	<!-- date picker -->
+	<script src="{% static "MyDigitalBackpack/js/node_modules/flatpickr/dist/flatpickr.js" %}"></script>
+	<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/js/node_modules/flatpickr/dist/flatpickr.css" %}">
 </head>
 
 <body>
@@ -59,17 +63,38 @@ body {
 </div>
 
 
-<div class="formHalf noMiddleBorder col-sm-5 col-md-5 col-lg-5">
+<div class="formHalf noMiddleBorder col-sm-5 col-md-5 col-lg-5" style="width: 83%;">
 
 
 
-<div class="classForm field passwordBoxDifferent">
-	<form id="test" action="/signup_action/" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="4s352M32o4IInZmzpKoeponhAdKDIJAmfMIa0uMz7YscrthMjpVXJuUld89cLVOY" />
+<div class="classForm field passwordBoxDifferent" style="width: 50%;">
+	<form id="signup" action="/signup_action/" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="4s352M32o4IInZmzpKoeponhAdKDIJAmfMIa0uMz7YscrthMjpVXJuUld89cLVOY" />
 		{% csrf_token %}
-		<input placeholder="Email address" id="id_email" maxlength="255" name="email" type="email" required />
-	 	<input placeholder="First name" id="id_first_name" maxlength="30" name="first_name" type="text" required />
-	 	<input placeholder="Last name" id="id_last_name" maxlength="30" name="last_name" type="text" required />
-	 	<input id="id_date_of_birth" name="date_of_birth" type="date"  required />
+		<input placeholder="Email Address" id="id_email" maxlength="255" name="email" type="email" required />
+	 	<input placeholder="First Name" id="id_first_name" maxlength="30" name="first_name" type="text" required />
+	 	<input placeholder="Last Name" id="id_last_name" maxlength="30" name="last_name" type="text" required />
+		<!-- <input placeholder="Date of Birth" class="date_of_birth" name="date_of_birth" type="text" onchange="this.className=(this.value!=''?'has-value':'')" required /> -->
+		<h4>Date of Birth</h4>
+		<div style="width: 70%; margin: auto; display: table; table-layout: fixed; text-align: center;">
+			<select name="month" form="signup" style="display: table-cell; width: 33%;">
+			  <option value="1">Jan</option>
+			  <option value="2">Feb</option>
+			  <option value="3">Mar</option>
+			  <option value="4">Apr</option>
+				<option value="5">May</option>
+				<option value="6">Jun</option>
+				<option value="7">Jul</option>
+				<option value="8">Aug</option>
+				<option value="9">Sep</option>
+				<option value="10">Oct</option>
+				<option value="11">Nov</option>
+				<option value="12">Dec</option>
+			</select>
+			<input name="day" type="text" placeholder="dd" maxlength="2" style="display: table-cell; width: 33%;" />
+			<input name="year" type="text" placeholder="yyyy" maxlength="4" style="display: table-cell; width: 33%;"/>
+		</div>
+
+
 		<input type="password" name="password" placeholder="Password"/>
 	  <input type="submit" value="Sign Up">
   </form>
@@ -79,7 +104,7 @@ body {
 
 </div>
 
-<div class="uploadHalf noMiddleBorder col-sm-5 col-md-5 col-lg-5">
+<!-- <div class="uploadHalf noMiddleBorder col-sm-5 col-md-5 col-lg-5"> -->
   <!-- <form method="post" action="/syllabi_upload_action/" enctype="multipart/form-data">
    {% csrf_token %}
     <input type="file" name="myfile" id="file" class="inputfile inputProfile">
@@ -88,7 +113,10 @@ body {
 
   </form> -->
 </div>
-
-
 </body>
+<script>
+$(".date_of_birth").flatpickr({
+	altInput: true
+});
+</script>
 </html>

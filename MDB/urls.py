@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^check_verified_action/', views.check_verified_action, name='check_verified_action'),
     url(r'^new_note_action/', views.new_note_action, name='new_note_action'),
     url(r'^delete_event/', views.delete_event, name='delete_event'),
+    url(r'^delete_course/', views.delete_course, name='delete_course'),
 
     #class views for API
     url(r'^users/$', apiViews.UserList.as_view()),

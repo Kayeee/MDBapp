@@ -1,6 +1,5 @@
 <!doctype html>
 {% load static %}
-{% load extras %}
 <html>
 <head>
 <meta charset="utf-8">
@@ -23,9 +22,10 @@ body {
 <link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/pages.css" %}">
 <!-- Custom JS -->
 <script type="text/javascript" src="{% static "MyDigitalBackpack/js/index.js" %}"> </script>
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<![endif]-->
+<!-- date picker -->
+<script src="{% static "MyDigitalBackpack/js/node_modules/flatpickr/src/flatpickr.js" %}"></script>
+<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/js/node_modules/flatpickr/dist/flatpickr.css" %}">
+
 <script>
 var csrf = '{{csrf_token|safe}}'
 </script>
@@ -69,7 +69,7 @@ var csrf = '{{csrf_token|safe}}'
 					<div class="x">
 						<img src="{% static "MyDigitalBackpack/images/icons/x.png" %}" style="height: 10px; width: 10px;">
 					</div>
-					<input type="date" name="due-date">
+					<input type="date" name="due-date" >
 					<!-- <h2 contenteditable="true"> {{ event.0 }} </h2> -->
 					<select id="priority" name="priority">
 		    		  <option value="0">Low</option>
@@ -112,6 +112,8 @@ var csrf = '{{csrf_token|safe}}'
 </div>
 
 <script>
+
+
 
 $('body').on('click', '.x', function() {
 	console.log("here");
@@ -162,7 +164,7 @@ $('#addEventIcon').click(function() {
 		<div class="x">
 			<img src="{% static "MyDigitalBackpack/images/icons/x.png" %}" style="height: 10px; width: 10px;">
 		</div>
-			<input type="date" name="due-date">
+			<input type="date" name="due-date" class="due_date">
 			<select id="priority" name="priority">
 					<option value="0">Low</option>
 					<option value="1">Medium</option>
@@ -172,6 +174,11 @@ $('#addEventIcon').click(function() {
 
 		</div>
 	`)
+
+	$(".due_date").flatpickr({
+		enableTime: true,
+		altInput: true
+	});
 });
 </script>
 </body>

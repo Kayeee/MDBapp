@@ -6,6 +6,7 @@ MDB/migrations/
 *.pem
 line.select
 migrations/
+login-ubuntu.sh
 
 ###### COPIES IGNORES #######
 # Byte-compiled / optimized / DLL files
@@ -21,7 +22,6 @@ __pycache__/
 env/
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/

@@ -178,6 +178,7 @@ body {
     height: 100%; }
 
 .course {
+  height: 35px;
   padding-top: 8px;
   padding-bottom: 8px; }
   .course h4 {
@@ -329,3 +330,14 @@ body {
     font-size: 18px;
     font-weight: bold;
 }
+
+.left-header {
+  float: left;
+}
+
+.right-icon {
+  float: right;
+}
+  .right-icon:hover{
+    color: red;
+  }

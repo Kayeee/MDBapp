@@ -2,62 +2,68 @@
 {% load static %}
 <html>
 <head>
-<meta charset="utf-8">
-<!-- <link rel="shortcut icon" type="image/x-icon" href="icons/favicon 128 x 128.png"> -->
-<link rel="shortcut icon" type="images/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}"/>
-<title>Dashboard</title>
-<!-- JQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Lato Google Font -->
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css">
+	<meta charset="utf-8">
+	<!-- <link rel="shortcut icon" type="image/x-icon" href="icons/favicon 128 x 128.png"> -->
+	<link rel="shortcut icon" type="images/x-icon" href="{% static "MyDigitalBackpack/images/icons/favicon 128 x 128.png" %}"/>
+	<title>Dashboard</title>
+	<!-- JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="http://malsup.github.com/jquery.form.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- Lato Google Font -->
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.19.1/vis.min.css">
+	<!-- Font Awesome -->
+	<script src="https://use.fontawesome.com/cd6e93a590.js"></script>
 
-<script>
-	var events = {{events|safe}};
-	var courses = {{courses|safe}};
-	var notes = {{notes|safe}};
-	var csrf = '{{csrf_token|safe}}'
-</script>
-<style>
-body {
-	font-family: 'Lato', sans-serif;
-}
-</style>
+	<!-- date picker -->
+	<script src="{% static "MyDigitalBackpack/js/node_modules/flatpickr/dist/flatpickr.js" %}"></script>
+	<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/js/node_modules/flatpickr/dist/flatpickr.css" %}">
 
-<!-- Custom CSS -->
-<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/dashboard.css" %}">
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<![endif]-->
-<script type="text/javascript">
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
-function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
+	<script>
+		var events = {{events|safe}};
+		var courses = {{courses|safe}};
+		var notes = {{notes|safe}};
+		var csrf = '{{csrf_token|safe}}'
+	</script>
+	<style>
+	body {
+		font-family: 'Lato', sans-serif;
+	}
+	</style>
 
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
+	<!-- Custom CSS -->
+	<link rel="stylesheet"  type="text/css" href="{% static "MyDigitalBackpack/css/dashboard.css" %}">
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+	function MM_swapImgRestore() { //v3.0
+	  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+	}
+	function MM_preloadImages() { //v3.0
+	  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+	    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+	    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+	}
 
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-</script>
+	function MM_findObj(n, d) { //v4.01
+	  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+	    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+	  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+	  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+	  if(!x && d.getElementById) x=d.getElementById(n); return x;
+	}
+
+	function MM_swapImage() { //v3.0
+	  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+	   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+	}
+	</script>
 </head>
 
 <body>
@@ -128,7 +134,7 @@ function MM_swapImage() { //v3.0
 
 	<div id="listView" class="col-sm-8 col-md-8 col-lg-8">
 		<div class="header inner">
-			<h3> List View</h3>
+			<h3> Coming Up</h3>
 			<div class="add_icon"> <!-- <img src="icons/addNote.png"> -->
 				<!-- <a href="" style="opacity:.4" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image4','','icons/addNote.png',1)"> -->
 					<img id="add-task-image" src="{% static "MyDigitalBackpack/images/icons/addNote_outline.png" %}" alt="" width="52" height="52"/>
@@ -164,7 +170,8 @@ function MM_swapImage() { //v3.0
 
 				</select></br>
 				<label for="due_date">Due Date:</label>
-				<input id="due_date" type="datetime-local" name="due_date"></br>
+				<!-- <input id="due_date" type="text" name="due_date"></br> -->
+				<input class="due_date" placeholder="Select Date.." type="text" name="due_date">
 				<label for="priority">Priority</label>
 				<select id="priority" name="priority">
 					<option value="0">Low</option>
@@ -209,8 +216,17 @@ function MM_swapImage() { //v3.0
 		  </form>
 	  </div>
 	</div>
-<footer></footer>
-<script src="{% static "MyDigitalBackpack/js/dashboard.js" %}"></script>
 
+	<!-- Confirm Delete Course Popup -->
+	<div id="delete-course-popup" class="popup">
+		<div class="popup-content">
+			<div><h4> Are you sure you want to delete this course? </h4></div>
+			<button class="confirm" id="delete-course-confirm">Delete</button>
+			<button class="cancel" id="delete-course-cancel">Cancel</button>
+		</div>
+	</div>
+<footer></footer>
+
+<script src="{% static "MyDigitalBackpack/js/dashboard.js" %}"></script>
 </body>
 </html>

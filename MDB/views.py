@@ -153,6 +153,13 @@ def syllabi_upload_action(request):
 @api_view(['POST'])
 def signup_action(request):
     print request.data
+
+    mutable = request.POST._mutable
+    request.POST._mutable = True
+    request.data["date_of_birth"] = "{0}-{1}-{2}".format(request.data["year"], request.data["month"], request.data["day"])
+    request.POST._mutable = mutable
+
+    print request.data
     serialized = serializers.MDBUserSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
@@ -191,16 +198,23 @@ def check_verified_action(request):
 @login_required
 @api_view(['POST'])
 def new_event_action(request):
+    course_code = request.data["course"]
+
+    print request.data
     request.data["owner"] = request.user.id
     request.data["course"] = request.user.course_set.get(course_code=request.data["course"]).id
 
     serialized = serializers.EventSerializer(data=request.data)
     if serialized.is_valid():
         serialized.save()
-        print serialized.data
-        return HttpResponse(json.dumps(serialized.data), status=201)
+
+        #send back course name rather than course id
+        returnObj = serialized.data
+        print course_code
+        returnObj["course"] = course_code
+        return HttpResponse(json.dumps(returnObj), status=201)
     else:
-        return HttpResponseRedirect('/new_event/')
+        return HttpResponse("Error creating event", status=500)
 
 @login_required
 @api_view(['POST'])
@@ -221,7 +235,10 @@ def confirm_course_action(request):
     course_info = dict(json.loads(request.data['course_info']))
     events = list(json.loads(request.data['events']))
 
-    print course_info
+    courses_for_user = [c.course_code for c in list(request.user.course_set.all())]
+    if course_info['course_code'] in courses_for_user:
+        return HttpResponse("You have already registered this course", status=400)
+
     #TODO: A serializer SHOULD work for this....but doesn't
     try:
         course = models.Course.objects.create(
@@ -236,7 +253,8 @@ def confirm_course_action(request):
 
     try:
         for event in events:
-            due_date = datetime.strptime(event['due_date'], '%Y-%m-%d')
+            #TODO: GET THIS DATETIME STUFF CLEANED UP
+            due_date = datetime.strptime(event['due_date'], '%Y-%m-%d %H:%M')
             print due_date
             psf = timezone('US/Pacific')
             time = psf.localize(due_date)
@@ -258,10 +276,24 @@ def confirm_course_action(request):
 @login_required
 @api_view(['DELETE'])
 def delete_event(request):
-    # try:
-    eventID = request.data['eventID'][0]
-    models.Event.objects.get(id=eventID).delete()
+    try:
+        eventID = request.data['eventID']
+        models.Event.objects.get(id=eventID).delete()
 
-    return HttpResponse(status=200)
-    # except:
-    #     return HttpResponse(status=500)
+        return HttpResponse(eventID, status=200)
+    except:
+        return HttpResponse(status=500)
+
+@login_required
+@api_view(['DELETE'])
+def delete_course(request):
+    try:
+        courseName = request.data['courseName']
+        courses = list(request.user.course_set.filter(course_code=courseName))
+        print courses
+        for course in courses:
+            course.delete()
+
+        return HttpResponse(status=200)
+    except:
+        return HttpResponse(status=500)
